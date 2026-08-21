@@ -1,14 +1,18 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
+import { motion, type Variants } from "motion/react";
 import type { ReactNode } from "react";
 
-const reveal: Variants = {
-  hidden: { opacity: 0, y: 24 },
+const revealVariants: Variants = {
+  hidden: { opacity: 0, y: 28, filter: "blur(4px)" },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: "easeOut" },
+    filter: "blur(0px)",
+    transition: {
+      duration: 0.65,
+      ease: [0.22, 1, 0.36, 1],
+    },
   },
 };
 
@@ -24,10 +28,10 @@ export function Reveal({
   return (
     <motion.div
       className={className}
-      variants={reveal}
+      variants={revealVariants}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "-80px" }}
+      viewport={{ once: true, margin: "-60px" }}
       transition={{ delay }}
     >
       {children}

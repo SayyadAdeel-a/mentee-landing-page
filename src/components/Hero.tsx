@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, TerminalWindow } from "@phosphor-icons/react";
+import { ArrowRight, TerminalWindow, CaretDown } from "@phosphor-icons/react";
 
 const WORD = "MENTEE";
 const COUNT = 100;
@@ -11,8 +11,15 @@ const MIDDLE = (COUNT - 1) / 2;
 export function Hero() {
   const reduce = useReducedMotion();
 
+  const handleScrollToContent = () => {
+    const target = document.getElementById("products");
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
-    <section className="relative flex min-h-[92vh] sm:min-h-screen flex-col items-center justify-center overflow-hidden bg-white px-4 sm:px-6 pt-24 pb-16 sm:pb-20 text-neutral-950">
+    <section className="relative flex min-h-[95vh] sm:min-h-screen flex-col items-center justify-between overflow-hidden bg-white px-4 sm:px-6 pt-24 pb-8 sm:pb-12 text-neutral-950">
       {/* Background white bg — black lines fade in, then curtain opens from center outward */}
       {!reduce && (
         <div
@@ -43,7 +50,7 @@ export function Hero() {
       )}
 
       {/* Main Center Content Wrapper */}
-      <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center justify-center text-center">
+      <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-1 flex-col items-center justify-center text-center my-auto">
         {/* Signature MENTEE Title */}
         <div className="relative flex w-full items-center justify-center overflow-visible py-2">
           <h1
@@ -105,29 +112,43 @@ export function Hero() {
         </motion.div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* Unique Compelling Interactive Scroll Beacon at Bottom Center */}
       <motion.div
-        initial={reduce ? false : { opacity: 0 }}
-        animate={reduce ? undefined : { opacity: 1 }}
-        transition={{ delay: 3.3, duration: 0.6 }}
-        className="pointer-events-none absolute bottom-6 right-6 sm:bottom-10 sm:right-10 hidden sm:flex items-center gap-2 text-[12px] font-mono font-medium text-neutral-400"
+        initial={reduce ? false : { opacity: 0, y: 20 }}
+        animate={reduce ? undefined : { opacity: 1, y: 0 }}
+        transition={{ delay: 3.2, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        className="relative z-10 mt-auto pt-6 flex flex-col items-center justify-center cursor-pointer group select-none"
+        onClick={handleScrollToContent}
       >
-        <span>Scroll</span>
-        <motion.svg
-          animate={reduce ? undefined : { y: [0, 5, 0] }}
-          transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-          xmlns="http://www.w3.org/2000/svg"
-          width="14"
-          height="14"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M6 9l6 6 6-6" />
-        </motion.svg>
+        <div className="inline-flex items-center gap-2.5 rounded-full border border-neutral-200/90 bg-neutral-50/80 px-4 py-1.5 shadow-2xs backdrop-blur-md transition-all duration-300 group-hover:border-neutral-400 group-hover:bg-white group-hover:shadow-xs active:scale-95">
+          {/* Animated Laser Capsule Track */}
+          <div className="relative flex h-5 w-3 items-start justify-center rounded-full border border-neutral-400/80 p-0.5 overflow-hidden">
+            <motion.div
+              animate={{
+                y: [0, 8, 0],
+                opacity: [0.4, 1, 0.4],
+              }}
+              transition={{
+                duration: 1.8,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              className="h-1.5 w-1 rounded-full bg-neutral-950 shadow-xs"
+            />
+          </div>
+
+          <span className="font-mono text-[11px] font-bold tracking-wider text-neutral-700 uppercase group-hover:text-neutral-950 transition-colors">
+            SCROLL TO DISCOVER ECOSYSTEM
+          </span>
+
+          <motion.div
+            animate={{ y: [0, 3, 0] }}
+            transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
+            className="flex items-center text-neutral-500 group-hover:text-neutral-950 transition-colors"
+          >
+            <CaretDown size={12} weight="bold" />
+          </motion.div>
+        </div>
       </motion.div>
     </section>
   );

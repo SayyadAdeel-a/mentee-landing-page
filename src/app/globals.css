@@ -3,6 +3,23 @@
 :root {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* Surface color tokens */
+  --color-surface-base: #ffffff;
+  --color-surface-raised: #fafafa;
+  --color-surface-muted: #f4f4f5;
+
+  /* Border radius tokens (12px standard, not pill) */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  /* Accessible typography scale */
+  --font-size-badge: 12px;
+  --font-size-body-sm: 14px;
+  --font-size-body: 16px;
+  --font-size-lead: 18px;
 }
 
 @theme inline {
@@ -14,7 +31,7 @@
 
 body {
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
-  background-color: #ffffff;
+  background-color: var(--color-surface-base);
   color: #09090b;
   overflow-x: hidden;
   width: 100%;
@@ -54,7 +71,7 @@ body {
   background: linear-gradient(
     90deg,
     rgba(0, 0, 0, 0.7) 0%,
-    rgba(0, 0, 0, 1) 50%,
+    rgba(0, 0, 1) 50%,
     rgba(0, 0, 0, 0.7) 100%
   );
   background-size: 200% 100%;

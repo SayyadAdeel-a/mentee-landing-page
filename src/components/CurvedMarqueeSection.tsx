@@ -21,24 +21,26 @@ interface TechBrand {
   logo: string;
 }
 
-const TECH_STACK_1: TechBrand[] = [
-  { name: "Python", category: "Core Backend & ML", logo: "/logos/python.svg" },
-  { name: "PyTorch", category: "Deep Learning", logo: "/logos/pytorch.svg" },
-  { name: "FastAPI", category: "Async Microservices", logo: "/logos/fastapi.svg" },
-  { name: "PostgreSQL", category: "Vector Database", logo: "/logos/postgresql.svg" },
+// Group 1: Infrastructure, Cloud & Data Runtimes
+const INFRASTRUCTURE_STACK: TechBrand[] = [
   { name: "Docker", category: "Container Engine", logo: "/logos/docker.svg" },
-  { name: "Kubernetes", category: "Cluster Orchestration", logo: "/logos/kubernetes.svg" },
-  { name: "Next.js", category: "Full-Stack Edge", logo: "/logos/nextdotjs.svg" },
+  { name: "Kubernetes", category: "Cluster Mesh", logo: "/logos/kubernetes.svg" },
+  { name: "PostgreSQL", category: "Vector Store", logo: "/logos/postgresql.svg" },
+  { name: "Redis", category: "In-Memory Stream", logo: "/logos/redis.svg" },
+  { name: "FastAPI", category: "Async Microservices", logo: "/logos/fastapi.svg" },
+  { name: "Firebase", category: "Realtime Enclave", logo: "/logos/firebase.svg" },
+  { name: "GitHub", category: "CI/CD Workflows", logo: "/logos/github.svg" },
 ];
 
-const TECH_STACK_2: TechBrand[] = [
+// Group 2: AI / ML, Acceleration & Frontend Architecture
+const AI_FRONTEND_STACK: TechBrand[] = [
+  { name: "Python", category: "Core AI Systems", logo: "/logos/python.svg" },
+  { name: "PyTorch", category: "Deep Learning", logo: "/logos/pytorch.svg" },
   { name: "NVIDIA CUDA", category: "GPU Acceleration", logo: "/logos/nvidia.svg" },
   { name: "OpenCV", category: "Computer Vision", logo: "/logos/opencv.svg" },
-  { name: "Redis", category: "In-Memory Streaming", logo: "/logos/redis.svg" },
-  { name: "TypeScript", category: "Type-Safe Systems", logo: "/logos/typescript.svg" },
-  { name: "Firebase", category: "Realtime Enclave", logo: "/logos/firebase.svg" },
-  { name: "GitHub", category: "CI/CD & Open Source", logo: "/logos/github.svg" },
-  { name: "Tailwind CSS", category: "Design Architecture", logo: "/logos/tailwindcss.svg" },
+  { name: "Next.js", category: "Full-Stack Edge", logo: "/logos/nextdotjs.svg" },
+  { name: "TypeScript", category: "Type-Safe Scale", logo: "/logos/typescript.svg" },
+  { name: "Tailwind CSS", category: "Design Engine", logo: "/logos/tailwindcss.svg" },
 ];
 
 interface ParallaxBandProps {
@@ -48,7 +50,7 @@ interface ParallaxBandProps {
 }
 
 function ParallaxBand({ items, baseVelocity = 0.8, isPaused }: ParallaxBandProps) {
-  const reduceMotion = useReducedMotion();
+  const prefersReduced = useReducedMotion();
   const baseX = useMotionValue(0);
   const { scrollY } = useScroll();
   const scrollVelocity = useVelocity(scrollY);
@@ -68,7 +70,8 @@ function ParallaxBand({ items, baseVelocity = 0.8, isPaused }: ParallaxBandProps
   const lastPointerX = useRef<number>(0);
 
   useAnimationFrame((t, delta) => {
-    if (reduceMotion || isPaused) {
+    // If user prefers reduced motion or motion is paused, halt autonomous movement
+    if (prefersReduced || isPaused) {
       if (Math.abs(dragVelocity.current) > 0.01) {
         baseX.set(baseX.get() + dragVelocity.current);
         dragVelocity.current *= 0.95;
@@ -101,7 +104,7 @@ function ParallaxBand({ items, baseVelocity = 0.8, isPaused }: ParallaxBandProps
 
   return (
     <div
-      className="flex flex-nowrap overflow-hidden select-none whitespace-nowrap cursor-grab active:cursor-grabbing py-1"
+      className="flex flex-nowrap overflow-hidden select-none whitespace-nowrap cursor-grab active:cursor-grabbing py-1.5"
       onPointerDown={(e) => {
         isDragging.current = true;
         lastPointerX.current = e.clientX;
@@ -128,10 +131,10 @@ function ParallaxBand({ items, baseVelocity = 0.8, isPaused }: ParallaxBandProps
             key={`${item.name}-${idx}`}
             tabIndex={0}
             role="group"
-            aria-label={`${item.name} technology: ${item.category}`}
-            className="flex items-center gap-3.5 rounded-2xl border border-neutral-300 bg-white px-4 py-2.5 shadow-2xs hover:border-neutral-950 focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:outline-none transition-all shrink-0"
+            aria-label={`${item.name} framework: ${item.category}`}
+            className="flex items-center gap-3.5 rounded-xl border border-neutral-300 bg-white px-4 py-2.5 shadow-2xs hover:border-neutral-950 focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:outline-none focus:outline-none transition-all shrink-0 cursor-pointer"
           >
-            <div className="relative flex h-8 w-8 items-center justify-center rounded-xl bg-neutral-50 border border-neutral-200 p-1.5 shadow-2xs">
+            <div className="relative flex h-8 w-8 items-center justify-center rounded-lg bg-neutral-100 border border-neutral-200 p-1.5 shadow-2xs">
               <Image
                 src={item.logo}
                 alt={`${item.name} logo`}
@@ -144,7 +147,7 @@ function ParallaxBand({ items, baseVelocity = 0.8, isPaused }: ParallaxBandProps
               <span className="text-xs font-bold text-neutral-950 leading-tight">
                 {item.name}
               </span>
-              <span className="font-mono text-[9px] font-bold text-neutral-600 uppercase tracking-wide">
+              <span className="font-mono text-[10px] font-bold text-neutral-600 uppercase tracking-wide">
                 {item.category}
               </span>
             </div>
@@ -159,8 +162,9 @@ export function CurvedMarqueeSection() {
   const [userPaused, setUserPaused] = useState(false);
   const [hoverPaused, setHoverPaused] = useState(false);
   const [focusPaused, setFocusPaused] = useState(false);
+  const prefersReduced = useReducedMotion();
 
-  const isPaused = userPaused || hoverPaused || focusPaused;
+  const isPaused = userPaused || hoverPaused || focusPaused || !!prefersReduced;
 
   return (
     <section
@@ -168,8 +172,8 @@ export function CurvedMarqueeSection() {
       className="relative w-full overflow-hidden bg-white py-16 border-y border-neutral-200"
       onMouseEnter={() => setHoverPaused(true)}
       onMouseLeave={() => setHoverPaused(false)}
-      onFocus={() => setFocusPaused(true)}
-      onBlur={() => setFocusPaused(false)}
+      onFocusCapture={() => setFocusPaused(true)}
+      onBlurCapture={() => setFocusPaused(false)}
     >
       {/* Background Subtle Accent Grid */}
       <div className="ambient-grid-light pointer-events-none absolute inset-0 opacity-25" />
@@ -183,7 +187,7 @@ export function CurvedMarqueeSection() {
         <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-neutral-950 sm:text-4xl">
           Engineered on battle-tested industry foundations.
         </h2>
-        <p className="mt-2.5 text-xs sm:text-sm text-neutral-600 max-w-2xl mx-auto leading-relaxed font-normal">
+        <p className="mt-2.5 text-sm text-neutral-600 max-w-2xl mx-auto leading-relaxed font-normal">
           From GPU acceleration and vector indexes to distributed container orchestration, our platforms are built on proven open technologies.
         </p>
 
@@ -194,7 +198,7 @@ export function CurvedMarqueeSection() {
             onClick={() => setUserPaused(!userPaused)}
             aria-pressed={isPaused}
             aria-label={isPaused ? "Resume technology ticker motion" : "Pause technology ticker motion"}
-            className="inline-flex items-center gap-1.5 rounded-full border border-neutral-300 bg-neutral-50 px-3 py-1 font-mono text-[11px] font-semibold text-neutral-700 hover:bg-neutral-100 hover:text-neutral-950 focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:outline-none transition-colors"
+            className="inline-flex items-center gap-1.5 rounded-full border border-neutral-300 bg-neutral-50 px-3.5 py-1.5 font-mono text-[11px] font-semibold text-neutral-800 hover:bg-neutral-100 hover:text-neutral-950 focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:outline-none transition-colors"
           >
             {isPaused ? (
               <>
@@ -216,13 +220,13 @@ export function CurvedMarqueeSection() {
         <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-20 sm:w-40 bg-gradient-to-r from-white via-white/90 to-transparent z-10" />
         <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-20 sm:w-40 bg-gradient-to-l from-white via-white/90 to-transparent z-10" />
 
-        {/* Dual Band of Real Brand Logos and Tech Ecosystem Badges */}
+        {/* Dual Band: Categorized Tech Stacks */}
         <div className="space-y-3.5 overflow-hidden">
-          {/* Track 1 (Leftwards Drift) */}
-          <ParallaxBand items={TECH_STACK_1} baseVelocity={-0.6} isPaused={isPaused} />
+          {/* Track 1: Infrastructure, Cloud & Data Mesh */}
+          <ParallaxBand items={INFRASTRUCTURE_STACK} baseVelocity={-0.6} isPaused={isPaused} />
 
-          {/* Track 2 (Rightwards Drift) */}
-          <ParallaxBand items={TECH_STACK_2} baseVelocity={0.6} isPaused={isPaused} />
+          {/* Track 2: AI / ML, Compute & Edge Frontend */}
+          <ParallaxBand items={AI_FRONTEND_STACK} baseVelocity={0.6} isPaused={isPaused} />
         </div>
       </div>
     </section>

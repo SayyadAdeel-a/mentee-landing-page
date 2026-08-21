@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, TerminalWindow, CaretDown } from "@phosphor-icons/react";
+import { HeroCradleMarquee } from "@/components/HeroCradleMarquee";
 
 const WORD = "MENTEE";
 const COUNT = 100;
@@ -49,10 +50,20 @@ export function Hero() {
         </div>
       )}
 
-      {/* Main Center Content Wrapper */}
+      {/* Main Center Content Wrapper with Surrounding Cradle Marquee */}
       <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-1 flex-col items-center justify-center text-center my-auto">
+        {/* Cradle Marquee Arc starting at M, swooping below CTAs, ending on E */}
+        <motion.div
+          initial={reduce ? false : { opacity: 0, scale: 0.95 }}
+          animate={reduce ? undefined : { opacity: 1, scale: 1 }}
+          transition={{ delay: 2.7, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="pointer-events-none absolute inset-0 -top-8 sm:-top-12 z-0 flex items-center justify-center"
+        >
+          <HeroCradleMarquee />
+        </motion.div>
+
         {/* Signature MENTEE Title */}
-        <div className="relative flex w-full items-center justify-center overflow-visible py-2">
+        <div className="relative z-10 flex w-full items-center justify-center overflow-visible py-2">
           <h1
             aria-label={WORD}
             className="relative flex text-[3.75rem] font-black leading-none tracking-tighter text-neutral-900 sm:text-8xl md:text-[10.5rem] lg:text-[12.5rem] select-none"
@@ -81,7 +92,7 @@ export function Hero() {
           initial={reduce ? false : { opacity: 0, y: 16 }}
           animate={reduce ? undefined : { opacity: 1, y: 0 }}
           transition={{ delay: 2.6, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-6 sm:mt-8 flex max-w-2xl flex-col items-center gap-6 sm:gap-8 px-2 sm:px-4"
+          className="relative z-10 mt-6 sm:mt-8 flex max-w-2xl flex-col items-center gap-6 sm:gap-8 px-2 sm:px-4"
         >
           <p className="text-sm sm:text-base md:text-lg font-medium text-neutral-600 leading-relaxed max-w-xl mx-auto">
             Production-grade AI systems engineered end to end —<br className="hidden sm:inline" />{" "}

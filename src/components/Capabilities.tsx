@@ -11,8 +11,6 @@ import {
   Sparkle,
   ArrowUpRight,
   CheckCircle,
-  Cpu,
-  LockKey,
   TerminalWindow
 } from "@phosphor-icons/react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -117,7 +115,6 @@ const CATEGORIES = [
 
 export function Capabilities() {
   const [activeTab, setActiveTab] = useState<string>("all");
-  const [expandedCard, setExpandedCard] = useState<string | null>(null);
 
   const filteredCapabilities = CAPABILITIES.filter((item) => {
     if (activeTab === "all") return true;
@@ -168,7 +165,6 @@ export function Capabilities() {
         <AnimatePresence mode="popLayout">
           {filteredCapabilities.map((cap) => {
             const Icon = cap.icon;
-            const isExpanded = expandedCard === cap.id;
 
             return (
               <motion.div
@@ -242,17 +238,17 @@ export function Capabilities() {
         </AnimatePresence>
       </div>
 
-      {/* Bottom Diagnostic Banner with Interactive Originkit Button */}
-      <div className="mt-12 rounded-3xl border border-neutral-200 bg-neutral-50/70 p-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xs">
+      {/* Bottom Diagnostic Banner Styled in Charcoal #212121 */}
+      <div className="mt-12 rounded-3xl border border-[#333333] bg-[#212121] p-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl text-white">
         <div className="flex items-center gap-4">
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white border border-neutral-200 text-neutral-950 shadow-xs shrink-0">
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#2a2a2a] border border-[#444444] text-white shadow-xs shrink-0">
             <TerminalWindow size={24} weight="duotone" />
           </div>
           <div>
-            <h4 className="text-base font-bold text-neutral-950">
+            <h4 className="text-base font-bold text-white">
               Need custom algorithmic modules or private cluster deployment?
             </h4>
-            <p className="text-xs text-neutral-600 mt-1 font-normal">
+            <p className="text-xs text-neutral-300 mt-1 font-normal">
               Our engineering studio deploys dedicated single-tenant pipelines with strict zero-knowledge security guarantees.
             </p>
           </div>
@@ -262,9 +258,9 @@ export function Capabilities() {
           <Link href="/contact">
             <EncryptButton
               label="Request Sandbox Access"
-              fill="#09090b"
-              textColor="#ffffff"
-              hoverTextColor="#ffffff"
+              fill="#ffffff"
+              textColor="#09090b"
+              hoverTextColor="#09090b"
               paddingX={28}
               paddingY={14}
               rounded={999}
@@ -275,7 +271,7 @@ export function Capabilities() {
                 letterSpacing: "0.02em",
               }}
               sweepOptions={{
-                color: "rgba(255,255,255,0.4)",
+                color: "rgba(0,0,0,0.15)",
                 speed: 8,
                 count: 2,
                 width: 12,

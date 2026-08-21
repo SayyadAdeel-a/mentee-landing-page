@@ -1,9 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, TerminalWindow, Copy, Check, Sparkle } from "@phosphor-icons/react";
+import { ArrowRight, TerminalWindow, ArrowUpRight, Sparkle, UserCheck } from "@phosphor-icons/react";
 import { ShinyText } from "@/components/ui/ShinyText";
 
 const WORD = "MENTEE";
@@ -12,13 +11,6 @@ const MIDDLE = (COUNT - 1) / 2;
 
 export function Hero() {
   const reduce = useReducedMotion();
-  const [copied, setCopied] = useState(false);
-
-  const copyCommand = () => {
-    navigator.clipboard.writeText("pip install datafit");
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
 
   return (
     <section className="relative flex min-h-[85vh] flex-col justify-center overflow-hidden bg-white px-6 pt-32 pb-20 sm:pt-36 sm:pb-24 text-neutral-950">
@@ -135,32 +127,31 @@ export function Hero() {
           </Link>
         </motion.div>
 
-        {/* Interactive Quick-Install / Developer Snippet */}
+        {/* Floating Founder & Studio Attribution Badge */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6 }}
-          className="mt-8 inline-flex items-center gap-3 rounded-full border border-neutral-200 bg-neutral-50/90 px-4 py-1.5 shadow-2xs text-xs font-mono"
+          className="mt-8"
         >
-          <span className="text-neutral-400">$</span>
-          <span className="font-semibold text-neutral-800">pip install datafit</span>
-          <button
-            onClick={copyCommand}
-            className="flex items-center gap-1 text-neutral-500 hover:text-neutral-950 transition-colors ml-1 border-l border-neutral-200 pl-2.5"
-            title="Copy command"
+          <a
+            href="https://syab.tech"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center gap-2.5 rounded-full border border-neutral-200/90 bg-neutral-50/90 px-4 py-1.5 shadow-2xs backdrop-blur-md transition-all duration-300 hover:border-neutral-400 hover:bg-white hover:shadow-xs"
           >
-            {copied ? (
-              <>
-                <Check size={13} weight="bold" className="text-emerald-600" />
-                <span className="text-[10px] font-bold text-emerald-700">Copied</span>
-              </>
-            ) : (
-              <>
-                <Copy size={13} />
-                <span className="text-[10px]">Copy</span>
-              </>
-            )}
-          </button>
+            <div className="flex h-5 w-5 items-center justify-center rounded-full bg-neutral-950 text-[10px] font-black text-white">
+              S
+            </div>
+            <span className="font-mono text-xs font-semibold text-neutral-700">
+              Architected by <strong className="font-bold text-neutral-950 group-hover:underline">Syed Syab Ahmad</strong>
+            </span>
+            <span className="h-1 w-1 rounded-full bg-neutral-300" />
+            <span className="flex items-center gap-0.5 text-[11px] font-mono font-bold text-neutral-900 group-hover:text-black">
+              <span>syab.tech</span>
+              <ArrowUpRight size={11} weight="bold" className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </span>
+          </a>
         </motion.div>
       </div>
     </section>

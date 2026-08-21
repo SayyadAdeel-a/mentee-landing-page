@@ -94,7 +94,7 @@ export function ProductBento() {
       </Reveal>
 
       {/* Zigzag Alternating Editorial Horizontal Rows */}
-      <div className="divide-y divide-neutral-200 border-b border-neutral-200">
+      <div className="divide-y divide-neutral-200">
         {products.map((p, idx) => {
           const isReversed = idx % 2 === 1;
 

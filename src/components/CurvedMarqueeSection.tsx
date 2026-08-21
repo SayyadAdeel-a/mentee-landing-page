@@ -169,7 +169,7 @@ export function CurvedMarqueeSection() {
   return (
     <section
       aria-label="Production Infrastructure & Technology Stack"
-      className="relative w-full overflow-hidden bg-white py-10 sm:py-16 border-y border-neutral-200"
+      className="relative w-full overflow-hidden bg-white py-10 sm:py-16 border-t border-neutral-200"
       onMouseEnter={() => setHoverPaused(true)}
       onMouseLeave={() => setHoverPaused(false)}
       onFocusCapture={() => setFocusPaused(true)}

@@ -1,15 +1,17 @@
 "use client";
 
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useRef } from "react";
 import { ChevronLeft, ChevronRight, Sparkle, ArrowRight } from "lucide-react";
 import {
   Autoplay,
   EffectCoverflow,
   Navigation,
   Pagination,
+  Keyboard,
+  A11y
 } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import type { Swiper as SwiperType } from "swiper";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
@@ -75,6 +77,8 @@ const PLATFORM_CARDS = [
 ];
 
 export function CoverflowCards() {
+  const swiperRef = useRef<SwiperType | null>(null);
+
   const css = `
   .MenteE_Coverflow {
     width: 100%;
@@ -102,8 +106,23 @@ export function CoverflowCards() {
   }
   `;
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "ArrowLeft") {
+      swiperRef.current?.slidePrev();
+    } else if (e.key === "ArrowRight") {
+      swiperRef.current?.slideNext();
+    }
+  };
+
   return (
-    <section className="relative w-full overflow-hidden bg-neutral-50/60 py-24 border-t border-neutral-200 text-neutral-950">
+    <section
+      role="region"
+      aria-roledescription="carousel"
+      aria-label="Explore the MenteE Suite in 3D"
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+      className="relative w-full overflow-hidden bg-neutral-50/60 py-24 border-t border-neutral-200 text-neutral-950 focus-visible:outline-none"
+    >
       <style>{css}</style>
 
       <div className="mx-auto max-w-7xl px-6">
@@ -117,21 +136,37 @@ export function CoverflowCards() {
             Explore the MenteE Suite in 3D
           </h2>
           <p className="mt-4 text-base text-neutral-600 leading-relaxed font-normal">
-            Drag or click through our deployed platforms, open-source libraries, and security vaults.
+            Drag, arrow keys, or tab through our deployed platforms, open-source libraries, and security vaults.
           </p>
         </div>
 
         {/* 3D Coverflow Swiper */}
         <div className="relative mx-auto max-w-5xl">
           <Swiper
+            onSwiper={(swiper) => {
+              swiperRef.current = swiper;
+            }}
             effect="coverflow"
             grabCursor={true}
             slidesPerView="auto"
             centeredSlides={true}
             loop={true}
+            keyboard={{
+              enabled: true,
+              onlyInViewport: true,
+            }}
+            a11y={{
+              enabled: true,
+              prevSlideMessage: "Previous platform slide",
+              nextSlideMessage: "Next platform slide",
+              firstSlideMessage: "This is the first slide",
+              lastSlideMessage: "This is the last slide",
+              paginationBulletMessage: "Go to platform slide {{index}}",
+            }}
             autoplay={{
               delay: 3500,
               disableOnInteraction: false,
+              pauseOnMouseEnter: true,
             }}
             coverflowEffect={{
               rotate: 35,
@@ -148,12 +183,12 @@ export function CoverflowCards() {
               prevEl: ".swiper-button-prev-custom",
             }}
             className="MenteE_Coverflow"
-            modules={[EffectCoverflow, Autoplay, Pagination, Navigation]}
+            modules={[EffectCoverflow, Autoplay, Pagination, Navigation, Keyboard, A11y]}
           >
             {PLATFORM_CARDS.map((card, index) => (
-              <SwiperSlide key={index}>
+              <SwiperSlide key={index} aria-label={`Platform ${index + 1} of ${PLATFORM_CARDS.length}: ${card.title}`}>
                 <div className={cn(
-                  "flex h-full w-full flex-col justify-between rounded-3xl border bg-white p-7 shadow-xl transition-all duration-300",
+                  "flex h-full w-full flex-col justify-between rounded-3xl border bg-white p-7 shadow-xl transition-all duration-300 focus-within:ring-2 focus-within:ring-neutral-950",
                   card.accent
                 )}>
                   <div>
@@ -185,7 +220,7 @@ export function CoverflowCards() {
                     </p>
                     <Link
                       href="/products"
-                      className="flex items-center justify-between font-bold text-xs text-neutral-950 hover:text-neutral-700 transition-colors"
+                      className="flex items-center justify-between font-bold text-xs text-neutral-950 hover:text-neutral-700 focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:outline-none rounded-md py-1 transition-colors"
                     >
                       <span>Platform Details</span>
                       <ArrowRight size={14} />
@@ -200,14 +235,14 @@ export function CoverflowCards() {
           <button
             type="button"
             aria-label="Previous Slide"
-            className="swiper-button-prev-custom absolute left-2 top-1/2 -translate-y-1/2 z-10 hidden sm:flex h-11 w-11 items-center justify-center rounded-full border border-neutral-300 bg-white/90 text-neutral-900 shadow-md backdrop-blur-md transition-all hover:bg-white hover:scale-105 active:scale-95"
+            className="swiper-button-prev-custom absolute left-2 top-1/2 -translate-y-1/2 z-10 hidden sm:flex h-11 w-11 items-center justify-center rounded-full border border-neutral-300 bg-white/90 text-neutral-900 shadow-md backdrop-blur-md transition-all hover:bg-white hover:scale-105 active:scale-95 focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:outline-none"
           >
             <ChevronLeft className="h-5 w-5" />
           </button>
           <button
             type="button"
             aria-label="Next Slide"
-            className="swiper-button-next-custom absolute right-2 top-1/2 -translate-y-1/2 z-10 hidden sm:flex h-11 w-11 items-center justify-center rounded-full border border-neutral-300 bg-white/90 text-neutral-900 shadow-md backdrop-blur-md transition-all hover:bg-white hover:scale-105 active:scale-95"
+            className="swiper-button-next-custom absolute right-2 top-1/2 -translate-y-1/2 z-10 hidden sm:flex h-11 w-11 items-center justify-center rounded-full border border-neutral-300 bg-white/90 text-neutral-900 shadow-md backdrop-blur-md transition-all hover:bg-white hover:scale-105 active:scale-95 focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:outline-none"
           >
             <ChevronRight className="h-5 w-5" />
           </button>

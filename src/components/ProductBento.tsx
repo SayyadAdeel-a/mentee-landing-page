@@ -8,7 +8,6 @@ import {
   Eye, 
   CheckCircle, 
   ArrowRight, 
-  Cpu, 
   Sparkle
 } from "@phosphor-icons/react";
 import Link from "next/link";
@@ -17,16 +16,7 @@ import { LiveTerminal } from "@/components/ui/LiveTerminal";
 import { SecurityVisualizer } from "@/components/ui/SecurityVisualizer";
 
 export function ProductBento() {
-  const [matchScore, setMatchScore] = useState(94);
-  const [isEvaluating, setIsEvaluating] = useState(false);
-
-  function triggerReEvaluation() {
-    setIsEvaluating(true);
-    setTimeout(() => {
-      setMatchScore(Math.floor(Math.random() * 6) + 93);
-      setIsEvaluating(false);
-    }, 500);
-  }
+  const [matchScore] = useState(96);
 
   return (
     <section id="products" className="relative mx-auto max-w-7xl px-6 py-24 bg-white text-neutral-950">
@@ -47,7 +37,7 @@ export function ProductBento() {
       {/* Bento Grid */}
       <div className="grid gap-6 md:grid-cols-12">
         {/* 1. RecruAI: Span 7 cols */}
-        <SpotlightCard className="md:col-span-7 flex flex-col justify-between">
+        <SpotlightCard className="md:col-span-7 flex flex-col justify-between p-8">
           <div>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
@@ -61,19 +51,15 @@ export function ProductBento() {
                       Talent Engine
                     </span>
                   </h3>
-                  <p className="text-xs text-neutral-500">Autonomous CV understanding & intelligent candidate matching</p>
+                  <p className="text-xs text-neutral-500 font-normal">Autonomous CV comprehension & semantic scoring</p>
                 </div>
               </div>
-              <button
-                onClick={triggerReEvaluation}
-                className="hidden sm:flex items-center gap-1.5 rounded-lg border border-neutral-200 bg-neutral-50 px-3 py-1.5 text-xs font-semibold text-neutral-800 shadow-xs transition-colors hover:bg-neutral-100"
-              >
-                <Cpu size={14} />
-                <span>{isEvaluating ? "Scoring..." : "Simulate Score"}</span>
-              </button>
+              <span className="rounded-full border border-blue-200 bg-blue-50 px-2.5 py-0.5 text-[10px] font-mono font-bold text-blue-700">
+                FastAPI
+              </span>
             </div>
 
-            {/* Interactive Mock Preview */}
+            {/* Interactive Preview Container */}
             <div className="mt-6 rounded-xl border border-neutral-200 bg-neutral-50/70 p-4">
               <div className="flex items-center justify-between border-b border-neutral-200 pb-3">
                 <div className="flex items-center gap-3">
@@ -81,8 +67,8 @@ export function ProductBento() {
                     SA
                   </div>
                   <div>
-                    <p className="text-xs font-bold text-neutral-900">Senior Full-Stack AI Engineer</p>
-                    <p className="text-[11px] text-neutral-500">Role: Lead Systems Architect</p>
+                    <p className="text-xs font-bold text-neutral-900">Lead Full-Stack AI Engineer</p>
+                    <p className="text-[11px] text-neutral-500">Autonomous Profile Evaluation</p>
                   </div>
                 </div>
                 <div className="text-right">
@@ -106,7 +92,7 @@ export function ProductBento() {
                 <div className="rounded-lg bg-white p-2 border border-neutral-200 shadow-xs">
                   <span className="text-neutral-500 block font-medium">System Design</span>
                   <span className="text-emerald-700 font-bold flex items-center gap-1 mt-0.5">
-                    <CheckCircle size={12} weight="fill" /> 92% Match
+                    <CheckCircle size={12} weight="fill" /> 94% Match
                   </span>
                 </div>
               </div>
@@ -114,10 +100,10 @@ export function ProductBento() {
           </div>
 
           <div className="mt-6 flex items-center justify-between border-t border-neutral-100 pt-4 text-xs">
-            <span className="text-neutral-500 font-medium font-mono">FastAPI · PostgreSQL · Vector Search</span>
+            <span className="text-neutral-500 font-mono">FastAPI · PostgreSQL · Vector Search</span>
             <Link
               href="/products"
-              className="flex items-center gap-1 font-bold text-neutral-950 transition-colors hover:text-neutral-700"
+              className="flex items-center gap-1 font-bold text-neutral-950 transition-colors hover:text-neutral-700 focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:outline-none rounded-md py-1"
             >
               <span>Explore RecruAI</span>
               <ArrowRight size={13} />
@@ -126,21 +112,26 @@ export function ProductBento() {
         </SpotlightCard>
 
         {/* 2. DocsBox: Span 5 cols */}
-        <SpotlightCard className="md:col-span-5 flex flex-col justify-between">
+        <SpotlightCard className="md:col-span-5 flex flex-col justify-between p-8">
           <div>
-            <div className="flex items-center gap-3">
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-neutral-100 border border-neutral-200 text-neutral-900 shadow-xs">
-                <ShieldCheck size={24} weight="duotone" />
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-neutral-100 border border-neutral-200 text-neutral-900 shadow-xs">
+                  <ShieldCheck size={24} weight="duotone" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-neutral-950 flex items-center gap-2">
+                    DocsBox
+                    <span className="text-[10px] font-mono font-bold uppercase text-neutral-800 bg-neutral-100 border border-neutral-200 px-2 py-0.5 rounded-full">
+                      Zero-Knowledge
+                    </span>
+                  </h3>
+                  <p className="text-xs text-neutral-500 font-normal">Hardware-backed vault with client-side encryption</p>
+                </div>
               </div>
-              <div>
-                <h3 className="text-xl font-bold text-neutral-950 flex items-center gap-2">
-                  DocsBox
-                  <span className="text-[10px] font-mono font-bold uppercase text-neutral-800 bg-neutral-100 border border-neutral-200 px-2 py-0.5 rounded-full">
-                    Zero-Knowledge
-                  </span>
-                </h3>
-                <p className="text-xs text-neutral-500">Hardware-backed vault with client-side AES-256</p>
-              </div>
+              <span className="rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-0.5 text-[10px] font-mono font-bold text-emerald-700">
+                AES-256
+              </span>
             </div>
 
             <div className="mt-5">
@@ -149,19 +140,19 @@ export function ProductBento() {
           </div>
 
           <div className="mt-6 flex items-center justify-between border-t border-neutral-100 pt-4 text-xs">
-            <span className="text-neutral-500 font-medium font-mono">Kotlin · AES-256 · Firebase</span>
+            <span className="text-neutral-500 font-mono">Kotlin · AES-256-GCM · Firebase</span>
             <Link
               href="/products"
-              className="flex items-center gap-1 font-bold text-neutral-950 transition-colors hover:text-neutral-700"
+              className="flex items-center gap-1 font-bold text-neutral-950 transition-colors hover:text-neutral-700 focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:outline-none rounded-md py-1"
             >
-              <span>Vault Specs</span>
+              <span>Explore DocsBox</span>
               <ArrowRight size={13} />
             </Link>
           </div>
         </SpotlightCard>
 
         {/* 3. DataFit: Span 6 cols */}
-        <SpotlightCard className="md:col-span-6 flex flex-col justify-between">
+        <SpotlightCard className="md:col-span-6 flex flex-col justify-between p-8">
           <div>
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-3">
@@ -172,50 +163,55 @@ export function ProductBento() {
                   <h3 className="text-xl font-bold text-neutral-950 flex items-center gap-2">
                     DataFit
                     <span className="text-[10px] font-mono font-bold uppercase text-neutral-800 bg-neutral-100 border border-neutral-200 px-2 py-0.5 rounded-full">
-                      PyPI Published
+                      PyPI Package
                     </span>
                   </h3>
-                  <p className="text-xs text-neutral-500">Automated data preprocessing & feature engineering</p>
+                  <p className="text-xs text-neutral-500 font-normal">Automated data preprocessing & feature pipelines</p>
                 </div>
               </div>
-              <div className="rounded-full border border-neutral-200 bg-neutral-50 px-2.5 py-0.5 text-[11px] font-mono font-semibold text-neutral-800">
-                pip install datafit
-              </div>
+              <span className="rounded-full border border-purple-200 bg-purple-50 px-2.5 py-0.5 text-[10px] font-mono font-bold text-purple-700">
+                pip install
+              </span>
             </div>
 
             <LiveTerminal />
           </div>
 
           <div className="mt-6 flex items-center justify-between border-t border-neutral-100 pt-4 text-xs">
-            <span className="text-neutral-500 font-medium font-mono">Python 3.10+ · Scikit-Learn · Pandas</span>
+            <span className="text-neutral-500 font-mono">Python 3.10+ · Scikit-Learn · Pandas</span>
             <a
               href="https://github.com/SyabAhmad/datafit"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1 font-bold text-neutral-950 transition-colors hover:text-neutral-700"
+              className="flex items-center gap-1 font-bold text-neutral-950 transition-colors hover:text-neutral-700 focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:outline-none rounded-md py-1"
             >
-              <span>View on GitHub</span>
+              <span>Explore DataFit</span>
               <ArrowRight size={13} />
             </a>
           </div>
         </SpotlightCard>
 
-        {/* 4. Vision & CamWatch: Span 6 cols */}
-        <SpotlightCard className="md:col-span-6 flex flex-col justify-between">
+        {/* 4. Vision Systems: Span 6 cols */}
+        <SpotlightCard className="md:col-span-6 flex flex-col justify-between p-8">
           <div>
-            <div className="flex items-center gap-3 mb-4">
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-neutral-100 border border-neutral-200 text-neutral-900 shadow-xs">
-                <Eye size={24} weight="duotone" />
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-3">
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-neutral-100 border border-neutral-200 text-neutral-900 shadow-xs">
+                  <Eye size={24} weight="duotone" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-neutral-950 flex items-center gap-2">
+                    Vision Systems
+                    <span className="text-[10px] font-mono font-bold uppercase text-neutral-800 bg-neutral-100 border border-neutral-200 px-2 py-0.5 rounded-full">
+                      Edge AI
+                    </span>
+                  </h3>
+                  <p className="text-xs text-neutral-500 font-normal">Real-time object detection, perimeter telemetry & OpenCV</p>
+                </div>
               </div>
-              <div>
-                <h3 className="text-xl font-bold text-neutral-950 flex items-center gap-2">
-                  Vision Systems
-                  <span className="text-[10px] font-mono font-bold uppercase text-neutral-800 bg-neutral-100 border border-neutral-200 px-2 py-0.5 rounded-full">
-                    Edge AI
-                  </span>
-                </h3>
-                <p className="text-xs text-neutral-500">Real-time object detection, perimeter telemetry & OpenCV</p>
-              </div>
+              <span className="rounded-full border border-amber-200 bg-amber-50 px-2.5 py-0.5 text-[10px] font-mono font-bold text-amber-800">
+                YOLOv8
+              </span>
             </div>
 
             {/* Vision Stream Mock Canvas */}
@@ -240,12 +236,12 @@ export function ProductBento() {
           </div>
 
           <div className="mt-6 flex items-center justify-between border-t border-neutral-100 pt-4 text-xs">
-            <span className="text-neutral-500 font-medium font-mono">OpenCV · YOLOv8 · TensorRT</span>
+            <span className="text-neutral-500 font-mono">OpenCV · YOLOv8 · TensorRT</span>
             <Link
               href="/products"
-              className="flex items-center gap-1 font-bold text-neutral-950 transition-colors hover:text-neutral-700"
+              className="flex items-center gap-1 font-bold text-neutral-950 transition-colors hover:text-neutral-700 focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:outline-none rounded-md py-1"
             >
-              <span>Vision Architecture</span>
+              <span>Explore Vision</span>
               <ArrowRight size={13} />
             </Link>
           </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import {
   motion,
   useScroll,
@@ -9,10 +9,11 @@ import {
   useMotionValue,
   useVelocity,
   useAnimationFrame,
+  useReducedMotion,
   wrap
 } from "framer-motion";
 import Image from "next/image";
-import { Sparkle } from "@phosphor-icons/react";
+import { Sparkle, Pause, Play } from "@phosphor-icons/react";
 
 interface TechBrand {
   name: string;
@@ -43,9 +44,11 @@ const TECH_STACK_2: TechBrand[] = [
 interface ParallaxBandProps {
   items: TechBrand[];
   baseVelocity: number;
+  isPaused: boolean;
 }
 
-function ParallaxBand({ items, baseVelocity = 0.8 }: ParallaxBandProps) {
+function ParallaxBand({ items, baseVelocity = 0.8, isPaused }: ParallaxBandProps) {
+  const reduceMotion = useReducedMotion();
   const baseX = useMotionValue(0);
   const { scrollY } = useScroll();
   const scrollVelocity = useVelocity(scrollY);
@@ -65,6 +68,14 @@ function ParallaxBand({ items, baseVelocity = 0.8 }: ParallaxBandProps) {
   const lastPointerX = useRef<number>(0);
 
   useAnimationFrame((t, delta) => {
+    if (reduceMotion || isPaused) {
+      if (Math.abs(dragVelocity.current) > 0.01) {
+        baseX.set(baseX.get() + dragVelocity.current);
+        dragVelocity.current *= 0.95;
+      }
+      return;
+    }
+
     let moveBy = directionFactor.current * baseVelocity * (delta / 1000);
 
     if (velocityFactor.get() < 0) {
@@ -115,12 +126,15 @@ function ParallaxBand({ items, baseVelocity = 0.8 }: ParallaxBandProps) {
         {repeatedItems.map((item, idx) => (
           <div
             key={`${item.name}-${idx}`}
-            className="flex items-center gap-3.5 rounded-2xl border border-neutral-200/90 bg-neutral-50/70 px-4 py-2.5 shadow-2xs hover:border-neutral-400 hover:bg-white transition-all shrink-0"
+            tabIndex={0}
+            role="group"
+            aria-label={`${item.name} technology: ${item.category}`}
+            className="flex items-center gap-3.5 rounded-2xl border border-neutral-300 bg-white px-4 py-2.5 shadow-2xs hover:border-neutral-950 focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:outline-none transition-all shrink-0"
           >
-            <div className="relative flex h-8 w-8 items-center justify-center rounded-xl bg-white border border-neutral-200 p-1.5 shadow-2xs">
+            <div className="relative flex h-8 w-8 items-center justify-center rounded-xl bg-neutral-50 border border-neutral-200 p-1.5 shadow-2xs">
               <Image
                 src={item.logo}
-                alt={item.name}
+                alt={`${item.name} logo`}
                 width={20}
                 height={20}
                 className="h-5 w-5 object-contain"
@@ -130,7 +144,7 @@ function ParallaxBand({ items, baseVelocity = 0.8 }: ParallaxBandProps) {
               <span className="text-xs font-bold text-neutral-950 leading-tight">
                 {item.name}
               </span>
-              <span className="font-mono text-[9px] font-semibold text-neutral-500 uppercase tracking-wide">
+              <span className="font-mono text-[9px] font-bold text-neutral-600 uppercase tracking-wide">
                 {item.category}
               </span>
             </div>
@@ -142,12 +156,25 @@ function ParallaxBand({ items, baseVelocity = 0.8 }: ParallaxBandProps) {
 }
 
 export function CurvedMarqueeSection() {
+  const [userPaused, setUserPaused] = useState(false);
+  const [hoverPaused, setHoverPaused] = useState(false);
+  const [focusPaused, setFocusPaused] = useState(false);
+
+  const isPaused = userPaused || hoverPaused || focusPaused;
+
   return (
-    <section className="relative w-full overflow-hidden bg-white py-16 border-y border-neutral-200">
+    <section
+      aria-label="Production Infrastructure & Technology Stack"
+      className="relative w-full overflow-hidden bg-white py-16 border-y border-neutral-200"
+      onMouseEnter={() => setHoverPaused(true)}
+      onMouseLeave={() => setHoverPaused(false)}
+      onFocus={() => setFocusPaused(true)}
+      onBlur={() => setFocusPaused(false)}
+    >
       {/* Background Subtle Accent Grid */}
       <div className="ambient-grid-light pointer-events-none absolute inset-0 opacity-25" />
 
-      {/* Section Header with Clear Title & Context */}
+      {/* Section Header with Clear Title, Context, and Accessible Pause Controller */}
       <div className="relative mx-auto max-w-4xl px-6 text-center mb-10">
         <div className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-neutral-50 px-3.5 py-1 text-xs font-mono font-semibold text-neutral-700 mb-3 shadow-xs">
           <Sparkle size={13} weight="fill" className="text-neutral-900" />
@@ -159,6 +186,29 @@ export function CurvedMarqueeSection() {
         <p className="mt-2.5 text-xs sm:text-sm text-neutral-600 max-w-2xl mx-auto leading-relaxed font-normal">
           From GPU acceleration and vector indexes to distributed container orchestration, our platforms are built on proven open technologies.
         </p>
+
+        {/* Accessible WCAG 2.2 AA Motion Pause Button */}
+        <div className="mt-4 flex justify-center">
+          <button
+            type="button"
+            onClick={() => setUserPaused(!userPaused)}
+            aria-pressed={isPaused}
+            aria-label={isPaused ? "Resume technology ticker motion" : "Pause technology ticker motion"}
+            className="inline-flex items-center gap-1.5 rounded-full border border-neutral-300 bg-neutral-50 px-3 py-1 font-mono text-[11px] font-semibold text-neutral-700 hover:bg-neutral-100 hover:text-neutral-950 focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:outline-none transition-colors"
+          >
+            {isPaused ? (
+              <>
+                <Play size={12} weight="fill" className="text-emerald-600" />
+                <span>Motion Paused (Play)</span>
+              </>
+            ) : (
+              <>
+                <Pause size={12} weight="fill" className="text-neutral-700" />
+                <span>Pause Motion</span>
+              </>
+            )}
+          </button>
+        </div>
       </div>
 
       {/* Edge Gradient Mask Overlays for Smooth Fade In/Out */}
@@ -169,10 +219,10 @@ export function CurvedMarqueeSection() {
         {/* Dual Band of Real Brand Logos and Tech Ecosystem Badges */}
         <div className="space-y-3.5 overflow-hidden">
           {/* Track 1 (Leftwards Drift) */}
-          <ParallaxBand items={TECH_STACK_1} baseVelocity={-0.6} />
+          <ParallaxBand items={TECH_STACK_1} baseVelocity={-0.6} isPaused={isPaused} />
 
           {/* Track 2 (Rightwards Drift) */}
-          <ParallaxBand items={TECH_STACK_2} baseVelocity={0.6} />
+          <ParallaxBand items={TECH_STACK_2} baseVelocity={0.6} isPaused={isPaused} />
         </div>
       </div>
     </section>

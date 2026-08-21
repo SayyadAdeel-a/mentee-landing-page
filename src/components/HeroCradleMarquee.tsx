@@ -23,8 +23,8 @@ export function HeroCradleMarquee({
   const [isHovered, setIsHovered] = useState(false);
 
   const pathId = "hero-cradle-track";
-  // Curve starts at M (left: 20, top: 40), swoops under the CTA buttons (center: 500, bottom: 420), rises to E (right: 980, top: 40)
-  const pathD = "M 30,35 C 40,290 180,425 500,425 C 820,425 960,290 970,35";
+  // Smooth geometric arc starting at start of M (30,45), arcing down below CTAs (500,435), rising to end of E (970,45)
+  const pathD = "M 30,45 Q 500,435 970,45";
 
   const isDragging = useRef(false);
   const dragVelocity = useRef(0);

@@ -2,8 +2,9 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, TerminalWindow, ArrowUpRight, Sparkle, UserCheck } from "@phosphor-icons/react";
+import { ArrowRight, TerminalWindow, ArrowUpRight, Sparkle } from "@phosphor-icons/react";
 import { ShinyText } from "@/components/ui/ShinyText";
+import { HeroCurvedMarquee } from "@/components/HeroCurvedMarquee";
 
 const WORD = "MENTEE";
 const COUNT = 100;
@@ -13,7 +14,7 @@ export function Hero() {
   const reduce = useReducedMotion();
 
   return (
-    <section className="relative flex min-h-[85vh] flex-col justify-center overflow-hidden bg-white px-6 pt-32 pb-20 sm:pt-36 sm:pb-24 text-neutral-950">
+    <section className="relative flex min-h-[92vh] flex-col justify-between overflow-hidden bg-white px-6 pt-32 pb-6 sm:pt-36 text-neutral-950">
       {/* Background Ambient Grid & Radial Depth */}
       <div className="ambient-grid-light pointer-events-none absolute inset-0 opacity-40" />
       <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[500px] w-[800px] rounded-full bg-neutral-950/[0.02] blur-3xl" />
@@ -154,6 +155,16 @@ export function Hero() {
           </a>
         </motion.div>
       </div>
+
+      {/* Charcoal #212121 Curved Marquee Ribbon looping across Hero */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.7 }}
+        className="relative z-10 w-full overflow-hidden"
+      >
+        <HeroCurvedMarquee />
+      </motion.div>
     </section>
   );
 }

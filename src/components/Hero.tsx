@@ -50,9 +50,9 @@ export function Hero() {
         </div>
       )}
 
-      {/* Main Center Content Wrapper with Surrounding Grand Arc Marquee */}
-      <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-1 flex-col items-center justify-center text-center my-auto py-8 sm:py-12">
-        {/* Grand Arc Marquee: Starts at M, sweeps below CTAs, and rises to E */}
+      {/* Main Center Content Wrapper Framed by Iconic Logo Crescent Arc */}
+      <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-1 flex-col items-center justify-center text-center my-auto py-12 sm:py-16">
+        {/* Iconic Brand Logo Crescent Arc Marquee wrapping MENTEE, Subheading, and CTAs */}
         <motion.div
           initial={reduce ? false : { opacity: 0, scale: 0.96 }}
           animate={reduce ? undefined : { opacity: 1, scale: 1 }}

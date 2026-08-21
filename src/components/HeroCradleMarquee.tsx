@@ -22,9 +22,10 @@ export function HeroCradleMarquee({
   const [textWidth, setTextWidth] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
 
-  const pathId = "hero-full-arc-track";
-  // Grand smile arc: Starts at the outer left of M (20, 25), sweeps gracefully under the CTA buttons (500, 365), and rises to the outer right of E (980, 25)
-  const pathD = "M 20,25 Q 500,365 980,25";
+  const pathId = "hero-brand-crescent-track";
+  // Iconic crescent arc mirroring the MenteE logo smile:
+  // Starts beside M (50, 110), swoops around subheading & under the CTA buttons (550, 500), and rises beside E (1050, 110)
+  const pathD = "M 45,110 C 55,390 220,500 550,500 C 880,500 1045,390 1055,110";
 
   const isDragging = useRef(false);
   const dragVelocity = useRef(0);
@@ -46,7 +47,7 @@ export function HeroCradleMarquee({
     }
   }, []);
 
-  const calculatedRepeats = spacing > 0 ? Math.ceil((pathLength || 2200) / spacing) + 8 : 0;
+  const calculatedRepeats = spacing > 0 ? Math.ceil((pathLength || 2600) / spacing) + 8 : 0;
   const ready = (pathLength > 0 || textWidth > 0) && spacing > 0;
 
   useEffect(() => {
@@ -136,8 +137,8 @@ export function HeroCradleMarquee({
       }}
     >
       <svg
-        viewBox="0 0 1000 380"
-        className="w-full h-full max-w-5xl overflow-visible pointer-events-auto cursor-grab active:cursor-grabbing"
+        viewBox="0 0 1100 540"
+        className="w-full h-full max-w-6xl overflow-visible pointer-events-auto cursor-grab active:cursor-grabbing"
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
@@ -154,7 +155,7 @@ export function HeroCradleMarquee({
             fontSize: "11px",
             fontFamily: "var(--font-mono), monospace",
             fontWeight: 800,
-            letterSpacing: "2px",
+            letterSpacing: "2.5px",
           }}
         >
           {processedText}
@@ -164,22 +165,22 @@ export function HeroCradleMarquee({
           <path ref={pathRef} id={pathId} d={pathD} fill="none" />
         </defs>
 
-        {/* Charcoal #212121 Ribbon Track - 100% Fully Visible Arc */}
+        {/* Charcoal #212121 Ribbon Track - Iconic Logo Smile Arc */}
         <path
           d={pathD}
           fill="none"
           stroke="#212121"
-          strokeWidth="36"
+          strokeWidth="38"
           strokeLinecap="round"
-          className="drop-shadow-lg"
+          className="drop-shadow-xl"
         />
 
         {/* Architectural Dashed Border */}
         <path
           d={pathD}
           fill="none"
-          stroke="#444444"
-          strokeWidth="38"
+          stroke="#404040"
+          strokeWidth="40"
           strokeDasharray="4 4"
           strokeLinecap="round"
           className="opacity-75"
@@ -192,9 +193,9 @@ export function HeroCradleMarquee({
             fontSize="10.5px"
             fontFamily="var(--font-mono), monospace"
             fontWeight={800}
-            letterSpacing="2px"
+            letterSpacing="2.5px"
             xmlSpace="preserve"
-            dy="3.5"
+            dy="3.8"
           >
             <textPath href={`#${pathId}`} xmlSpace="preserve">
               {Array.from({ length: calculatedRepeats }).map((_, i) => (

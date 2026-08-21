@@ -32,6 +32,14 @@ export const metadata: Metadata = {
     "Machine Learning Platforms"
   ],
   authors: [{ name: "Syed Syab Ahmad", url: "https://syab.tech" }],
+  icons: {
+    icon: [
+      { url: "/MenteE.png", type: "image/png" },
+      { url: "/icon.png", type: "image/png" },
+    ],
+    shortcut: "/MenteE.png",
+    apple: "/MenteE.png",
+  },
   openGraph: {
     title: "MenteE™ — Autonomous AI Ecosystem",
     description: "Production-grade AI platforms, zero-knowledge document intelligence, and automated workflow systems.",

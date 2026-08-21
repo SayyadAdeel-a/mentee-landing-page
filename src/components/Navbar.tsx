@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { List, X, ArrowUpRight } from "@phosphor-icons/react";
+import gsap from "gsap";
 
 const navLinks = [
   { label: "Products", href: "/products" },
@@ -17,6 +18,10 @@ const navLinks = [
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  
+  const navContainerRef = useRef<HTMLUListElement>(null);
+  const blobRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     function handleScroll() {
@@ -29,6 +34,32 @@ export function Navbar() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  function moveBlob(target: HTMLElement) {
+    if (!navContainerRef.current || !blobRef.current) return;
+    const navRect = navContainerRef.current.getBoundingClientRect();
+    const rect = target.getBoundingClientRect();
+
+    gsap.to(blobRef.current, {
+      left: rect.left - navRect.left - 8,
+      width: rect.width + 16,
+      opacity: 1,
+      scale: 1,
+      duration: 0.35,
+      ease: "power2.out",
+    });
+  }
+
+  function hideBlob() {
+    if (!blobRef.current) return;
+    gsap.to(blobRef.current, {
+      opacity: 0,
+      scale: 0.92,
+      duration: 0.25,
+      ease: "power2.inOut",
+    });
+    setHoveredIndex(null);
+  }
 
   return (
     <header className="fixed top-4 sm:top-5 left-1/2 -translate-x-1/2 z-50 w-[94%] max-w-5xl pointer-events-none">
@@ -59,13 +90,34 @@ export function Navbar() {
           </span>
         </Link>
 
-        {/* Center Links - Clean Direct Text */}
-        <ul className="hidden items-center gap-7 text-xs font-semibold text-neutral-600 md:flex">
-          {navLinks.map((l) => (
-            <li key={l.label}>
+        {/* Center Links with GSAP Charcoal Sliding Blob */}
+        <ul
+          ref={navContainerRef}
+          onMouseLeave={hideBlob}
+          className="relative hidden items-center gap-2 text-xs font-semibold text-neutral-600 md:flex"
+        >
+          {/* Sliding Charcoal Blob */}
+          <div
+            ref={blobRef}
+            className="blob pointer-events-none absolute top-1/2 -translate-y-1/2 h-7 rounded-full bg-[#212121] opacity-0 shadow-xs z-0"
+          />
+
+          {navLinks.map((l, index) => (
+            <li key={l.label} className="relative z-10">
               <Link
                 href={l.href}
-                className="transition-colors hover:text-neutral-950 font-medium"
+                onMouseEnter={(e) => {
+                  setHoveredIndex(index);
+                  moveBlob(e.currentTarget);
+                }}
+                onFocus={(e) => {
+                  setHoveredIndex(index);
+                  moveBlob(e.currentTarget);
+                }}
+                onBlur={hideBlob}
+                className={`relative block px-3 py-1.5 transition-colors duration-200 font-medium ${
+                  hoveredIndex === index ? "text-white font-semibold" : "text-neutral-600 hover:text-neutral-950"
+                }`}
               >
                 {l.label}
               </Link>
@@ -81,7 +133,7 @@ export function Navbar() {
           </div>
           <Link
             href="/contact"
-            className="group flex items-center gap-1 rounded-full bg-neutral-950 px-4 py-2 text-xs font-bold text-white shadow-sm transition-all duration-200 hover:bg-neutral-800 active:scale-95"
+            className="group flex items-center gap-1 rounded-full bg-[#212121] px-4 py-2 text-xs font-bold text-white shadow-sm transition-all duration-200 hover:bg-neutral-800 active:scale-95"
           >
             <span>Get Started</span>
             <ArrowUpRight
@@ -128,7 +180,7 @@ export function Navbar() {
                 <Link
                   href="/contact"
                   onClick={() => setMobileOpen(false)}
-                  className="flex items-center justify-center gap-2 rounded-full bg-neutral-950 py-3 text-sm font-bold text-white shadow-md"
+                  className="flex items-center justify-center gap-2 rounded-full bg-[#212121] py-3 text-sm font-bold text-white shadow-md"
                 >
                   <span>Get Started</span>
                   <ArrowUpRight size={14} weight="bold" />

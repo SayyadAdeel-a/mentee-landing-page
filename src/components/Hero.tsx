@@ -117,7 +117,7 @@ export function Hero() {
           initial={reduce ? false : { opacity: 0, y: 15 }}
           animate={reduce ? undefined : { opacity: 1, y: 0 }}
           transition={{ delay: 2.9, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="relative z-10 w-full mt-4 sm:mt-6"
+          className="relative z-30 w-full mt-4 sm:mt-6"
         >
           <HeroCradleMarquee />
         </motion.div>

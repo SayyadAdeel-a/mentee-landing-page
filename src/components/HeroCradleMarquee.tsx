@@ -126,7 +126,7 @@ export function HeroCradleMarquee({
 
   return (
     <div
-      className="relative w-full max-w-4xl lg:max-w-5xl mx-auto select-none overflow-visible py-2"
+      className="relative z-30 pointer-events-auto w-full max-w-4xl lg:max-w-5xl mx-auto select-none overflow-visible py-2"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onFocusCapture={() => setIsHovered(true)}

@@ -4,7 +4,6 @@ import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, TerminalWindow, ArrowUpRight } from "@phosphor-icons/react";
 import { ShinyText } from "@/components/ui/ShinyText";
-import { HeroCurvedMarquee } from "@/components/HeroCurvedMarquee";
 
 const WORD = "MENTEE";
 const COUNT = 100;
@@ -19,11 +18,11 @@ export function Hero() {
       <div className="ambient-grid-light pointer-events-none absolute inset-0 opacity-40" />
       <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[500px] w-[800px] rounded-full bg-neutral-950/[0.02] blur-3xl" />
 
-      {/* 100 vertical curtain lines animation - Phase 1 (0s to 2.2s) */}
+      {/* 100 vertical curtain lines animation - Behind content */}
       {!reduce && (
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 flex z-0 opacity-80"
+          className="pointer-events-none absolute inset-0 flex z-0 opacity-25"
         >
           {Array.from({ length: COUNT }, (_, i) => {
             const dist = Math.abs(MIDDLE - i);
@@ -32,15 +31,15 @@ export function Hero() {
             return (
               <motion.span
                 key={i}
-                className="h-full flex-1 bg-neutral-950"
+                className="h-full flex-1 bg-neutral-900"
                 style={{ transformOrigin: "center" }}
-                initial={{ scaleX: 1, opacity: 0 }}
-                animate={{ scaleX: [0.2, 1, 1, 0.2], opacity: [0, 0.9, 0.9, 0] }}
+                initial={{ scaleX: 0.8, opacity: 0 }}
+                animate={{ scaleX: 0.8, opacity: [0, 0.8, 0.8, 0] }}
                 transition={{
-                  duration: 2.0,
-                  delay: normalizedDist * 0.3,
+                  duration: 2.2,
+                  delay: normalizedDist * 0.35,
                   ease: "easeInOut",
-                  times: [0, 0.25, 0.75, 1],
+                  times: [0, 0.2, 0.7, 1],
                 }}
               />
             );
@@ -50,12 +49,12 @@ export function Hero() {
 
       {/* Main Content Container */}
       <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-1 flex-col items-center justify-center text-center my-auto">
-        {/* Top Status & Pill Badge - Reveals as lines disappear */}
+        {/* Top Status & Pill Badge */}
         <motion.div
-          initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: -10 }}
+          initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: reduce ? 0 : 2.1 }}
-          className="mb-5 inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-neutral-50/90 px-4 py-1.5 shadow-2xs backdrop-blur-md"
+          transition={{ duration: 0.5 }}
+          className="mb-5 inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-neutral-50/80 px-4 py-1.5 shadow-2xs backdrop-blur-md"
         >
           <span className="flex h-2 w-2 rounded-full bg-emerald-500">
             <span className="h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75" />
@@ -66,7 +65,7 @@ export function Hero() {
           />
         </motion.div>
 
-        {/* Signature MENTEE Typography - Phase 2: Reveals sequentially right as lines disappear (2.0s+) */}
+        {/* Signature MENTEE Typography */}
         <div className="relative flex items-center justify-center overflow-hidden py-1 w-full">
           <h1
             aria-label={WORD}
@@ -77,12 +76,12 @@ export function Hero() {
                 key={i}
                 aria-hidden="true"
                 className="inline-block"
-                initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+                initial={reduce ? false : { opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
-                  duration: 0.6,
-                  delay: reduce ? 0 : 2.0 + i * 0.08,
-                  ease: [0.22, 1, 0.36, 1],
+                  duration: 0.5,
+                  delay: reduce ? 0 : 0.15 + i * 0.05,
+                  ease: "easeOut",
                 }}
               >
                 {ch}
@@ -91,31 +90,21 @@ export function Hero() {
           </h1>
         </div>
 
-        {/* Curved Marquee Ribbon nested directly below MENTEE spanning from M to EE */}
-        <motion.div
-          initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: reduce ? 0 : 2.5 }}
-          className="w-full"
-        >
-          <HeroCurvedMarquee />
-        </motion.div>
-
-        {/* Sub-headline & Contextual Value Prop - Phase 3 */}
+        {/* Sub-headline & Contextual Value Prop */}
         <motion.p
-          initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: reduce ? 0 : 2.7 }}
-          className="mt-2 max-w-2xl text-base sm:text-lg text-neutral-600 font-medium leading-relaxed"
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="mt-5 max-w-2xl text-base sm:text-lg text-neutral-600 font-medium leading-relaxed"
         >
           Engineering autonomous workflow orchestration, zero-knowledge document intelligence, and high-throughput AI ecosystems for production at scale.
         </motion.p>
 
         {/* Dual Call to Action Buttons */}
         <motion.div
-          initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: reduce ? 0 : 2.9 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
           className="mt-8 flex flex-wrap items-center justify-center gap-4"
         >
           <Link
@@ -140,9 +129,9 @@ export function Hero() {
 
         {/* Floating Founder & Studio Attribution Badge */}
         <motion.div
-          initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: reduce ? 0 : 3.1 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
           className="mt-8"
         >
           <a

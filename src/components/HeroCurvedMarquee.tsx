@@ -10,9 +10,9 @@ interface HeroCurvedMarqueeProps {
 }
 
 export function HeroCurvedMarquee({
-  text = "MENTEE AI // AUTONOMOUS WORKFLOW ORCHESTRATION // ZERO-KNOWLEDGE CRYPTOGRAPHIC VAULTS // PYTORCH & FASTAPI CORE // HIGH-THROUGHPUT GLOBAL EDGE // DISTRIBUTED AGENT MESH // SOC-2 COMPLIANT //",
+  text = "AUTONOMOUS AI // ZERO-KNOWLEDGE ENCLAVES // PYTORCH & FASTAPI // HIGH-THROUGHPUT RUNTIMES // DISTRIBUTED AGENT MESH // SOC-2 READY //",
   color = "#ffffff",
-  baseVelocity = 14,
+  baseVelocity = 16,
 }: HeroCurvedMarqueeProps) {
   const prefersReduced = useReducedMotion();
   const measureRef = useRef<SVGTextElement>(null);
@@ -22,15 +22,15 @@ export function HeroCurvedMarquee({
   const [textWidth, setTextWidth] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
 
-  // U-Curve Path designed specifically to sweep underneath the CTAs and founder pill
-  const pathId = "hero-bottom-curve-track";
-  const pathD = "M -100,40 Q 960,250 2020,40";
+  // Curved smile trajectory spanning from start of M (x: 20) to end of EE (x: 980)
+  const pathId = "mentee-under-curve-track";
+  const pathD = "M 10,25 Q 500,110 990,25";
 
   const isDragging = useRef(false);
   const dragVelocity = useRef(0);
   const lastPointerPosition = useRef({ x: 0, y: 0 });
 
-  const gapPx = 90;
+  const gapPx = 60;
   const processedText = useMemo(() => text.trim(), [text]);
   const spacing = textWidth + gapPx;
 
@@ -46,7 +46,7 @@ export function HeroCurvedMarquee({
     }
   }, []);
 
-  const calculatedRepeats = spacing > 0 ? Math.ceil((pathLength || 2800) / spacing) + 6 : 0;
+  const calculatedRepeats = spacing > 0 ? Math.ceil((pathLength || 1800) / spacing) + 6 : 0;
   const ready = (pathLength > 0 || textWidth > 0) && spacing > 0;
 
   useEffect(() => {
@@ -71,7 +71,7 @@ export function HeroCurvedMarquee({
           moveBy = dragVelocity.current;
           dragVelocity.current *= 0.92;
         } else {
-          moveBy = -(baseVelocity * 4) * (delta / 1000) + dragVelocity.current;
+          moveBy = -(baseVelocity * 3) * (delta / 1000) + dragVelocity.current;
           if (Math.abs(dragVelocity.current) > 0.01) {
             dragVelocity.current *= 0.95;
           } else {
@@ -115,7 +115,7 @@ export function HeroCurvedMarquee({
     if (!isDragging.current) return;
     const currentPosition = { x: e.clientX, y: e.clientY };
     const deltaX = currentPosition.x - lastPointerPosition.current.x;
-    dragVelocity.current = deltaX * 0.55;
+    dragVelocity.current = deltaX * 0.4;
     lastPointerPosition.current = currentPosition;
   };
 
@@ -126,19 +126,18 @@ export function HeroCurvedMarquee({
 
   return (
     <div
-      className="relative w-full select-none overflow-hidden"
+      className="relative w-full max-w-4xl lg:max-w-5xl mx-auto select-none overflow-visible -mt-4 sm:-mt-6 mb-2"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onFocusCapture={() => setIsHovered(true)}
       onBlurCapture={() => setIsHovered(false)}
       style={{
         visibility: ready ? "visible" : "hidden",
-        height: "260px",
-        marginTop: "16px",
+        height: "115px",
       }}
     >
       <svg
-        viewBox="0 0 1920 300"
+        viewBox="0 0 1000 130"
         className="w-full h-full block cursor-grab active:cursor-grabbing overflow-visible pointer-events-auto"
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
@@ -153,10 +152,10 @@ export function HeroCurvedMarquee({
             visibility: "hidden",
             opacity: 0,
             pointerEvents: "none",
-            fontSize: "14px",
+            fontSize: "12px",
             fontFamily: "var(--font-mono), monospace",
             fontWeight: 800,
-            letterSpacing: "2.5px",
+            letterSpacing: "2px",
           }}
         >
           {processedText}
@@ -165,52 +164,51 @@ export function HeroCurvedMarquee({
         <defs>
           <path ref={pathRef} id={pathId} d={pathD} fill="none" />
           
-          {/* Edge gradient mask for natural fade in and out at viewport boundaries */}
-          <linearGradient id="grandHeroFade" x1="0%" y1="0%" x2="100%" y2="0%">
+          <linearGradient id="menteeFade" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor="white" stopOpacity="0" />
-            <stop offset="8%" stopColor="white" stopOpacity="1" />
-            <stop offset="92%" stopColor="white" stopOpacity="1" />
+            <stop offset="6%" stopColor="white" stopOpacity="1" />
+            <stop offset="94%" stopColor="white" stopOpacity="1" />
             <stop offset="100%" stopColor="white" stopOpacity="0" />
           </linearGradient>
-          <mask id="grandHeroMask">
-            <rect width="100%" height="100%" fill="url(#grandHeroFade)" />
+          <mask id="menteeMask">
+            <rect width="100%" height="100%" fill="url(#menteeFade)" />
           </mask>
         </defs>
 
-        {/* Charcoal #212121 Large Ribbon Track */}
+        {/* Charcoal #212121 Ribbon Track */}
         <path
           d={pathD}
           fill="none"
           stroke="#212121"
-          strokeWidth="56"
+          strokeWidth="38"
           strokeLinecap="round"
-          className="drop-shadow-xl"
-          mask="url(#grandHeroMask)"
+          className="drop-shadow-lg"
+          mask="url(#menteeMask)"
         />
 
-        {/* Subtle Architectural Dashed Border */}
+        {/* Architectural Dashed Border */}
         <path
           d={pathD}
           fill="none"
           stroke="#404040"
-          strokeWidth="58"
-          strokeDasharray="5 5"
+          strokeWidth="40"
+          strokeDasharray="4 4"
           strokeLinecap="round"
           className="opacity-75"
-          mask="url(#grandHeroMask)"
+          mask="url(#menteeMask)"
         />
 
-        {/* Flowing Text Stream */}
+        {/* Streaming Text */}
         {ready && (
           <text
             fill={color}
-            fontSize="13px"
+            fontSize="10.5px"
             fontFamily="var(--font-mono), monospace"
             fontWeight={800}
-            letterSpacing="2.5px"
+            letterSpacing="2px"
             xmlSpace="preserve"
-            dy="4.5"
-            mask="url(#grandHeroMask)"
+            dy="3.8"
+            mask="url(#menteeMask)"
           >
             <textPath href={`#${pathId}`} xmlSpace="preserve">
               {Array.from({ length: calculatedRepeats }).map((_, i) => (

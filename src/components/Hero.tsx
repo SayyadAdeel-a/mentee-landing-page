@@ -14,7 +14,7 @@ export function Hero() {
   const reduce = useReducedMotion();
 
   return (
-    <section className="relative flex flex-col justify-between overflow-hidden bg-white px-6 pt-32 sm:pt-36 text-neutral-950">
+    <section className="relative flex min-h-[85vh] flex-col justify-center overflow-hidden bg-white px-6 pt-32 pb-20 sm:pt-36 sm:pb-24 text-neutral-950">
       {/* Background Ambient Grid & Radial Depth */}
       <div className="ambient-grid-light pointer-events-none absolute inset-0 opacity-40" />
       <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[500px] w-[800px] rounded-full bg-neutral-950/[0.02] blur-3xl" />
@@ -91,12 +91,22 @@ export function Hero() {
           </h1>
         </div>
 
+        {/* Curved Marquee Ribbon nested directly below MENTEE spanning from M to EE */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.35 }}
+          className="w-full"
+        >
+          <HeroCurvedMarquee />
+        </motion.div>
+
         {/* Sub-headline & Contextual Value Prop */}
         <motion.p
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-5 max-w-2xl text-base sm:text-lg text-neutral-600 font-medium leading-relaxed"
+          transition={{ duration: 0.6, delay: 0.45 }}
+          className="mt-2 max-w-2xl text-base sm:text-lg text-neutral-600 font-medium leading-relaxed"
         >
           Engineering autonomous workflow orchestration, zero-knowledge document intelligence, and high-throughput AI ecosystems for production at scale.
         </motion.p>
@@ -105,7 +115,7 @@ export function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
+          transition={{ duration: 0.6, delay: 0.55 }}
           className="mt-8 flex flex-wrap items-center justify-center gap-4"
         >
           <Link
@@ -132,7 +142,7 @@ export function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
+          transition={{ duration: 0.6, delay: 0.65 }}
           className="mt-8"
         >
           <a
@@ -155,16 +165,6 @@ export function Hero() {
           </a>
         </motion.div>
       </div>
-
-      {/* Grand Charcoal #212121 Curved Ribbon Flowing Along Base of Hero */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.7 }}
-        className="relative z-10 w-full overflow-hidden"
-      >
-        <HeroCurvedMarquee />
-      </motion.div>
     </section>
   );
 }

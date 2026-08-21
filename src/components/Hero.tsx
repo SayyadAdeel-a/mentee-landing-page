@@ -20,7 +20,7 @@ export function Hero() {
   };
 
   return (
-    <section className="relative flex min-h-[96vh] sm:min-h-screen flex-col items-center justify-between overflow-hidden bg-white px-4 sm:px-6 pt-24 pb-8 sm:pb-12 text-neutral-950">
+    <section className="relative flex min-h-[95vh] sm:min-h-screen flex-col items-center justify-between overflow-hidden bg-white px-4 sm:px-6 pt-24 pb-8 sm:pb-12 text-neutral-950">
       {/* Background white bg — black lines fade in, then curtain opens from center outward */}
       {!reduce && (
         <div
@@ -50,87 +50,84 @@ export function Hero() {
         </div>
       )}
 
-      {/* Main Center Content Wrapper with Surrounding Cradle Marquee */}
-      <div className="relative z-10 mx-auto flex w-full max-w-4xl sm:max-w-5xl flex-1 flex-col items-center justify-center text-center my-auto">
-        {/* Bounded Container for MENTEE + Subheading + CTAs + Cradle Arc */}
-        <div className="relative w-full max-w-4xl flex flex-col items-center justify-center pb-12 sm:pb-16 pt-2">
-          {/* Cradle Marquee Arc starting at M, swooping below CTAs, ending on E */}
-          <motion.div
-            initial={reduce ? false : { opacity: 0, scale: 0.95 }}
-            animate={reduce ? undefined : { opacity: 1, scale: 1 }}
-            transition={{ delay: 2.7, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center"
+      {/* Main Center Content Wrapper */}
+      <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-1 flex-col items-center justify-center text-center my-auto">
+        {/* Signature MENTEE Title */}
+        <div className="relative z-10 flex w-full items-center justify-center overflow-visible py-2">
+          <h1
+            aria-label={WORD}
+            className="relative flex text-[3.75rem] font-black leading-none tracking-tighter text-neutral-900 sm:text-8xl md:text-[10.5rem] lg:text-[12.5rem] select-none"
           >
-            <HeroCradleMarquee />
-          </motion.div>
-
-          {/* Signature MENTEE Title */}
-          <div className="relative z-10 flex w-full items-center justify-center overflow-visible">
-            <h1
-              aria-label={WORD}
-              className="relative flex text-[3.75rem] font-black leading-none tracking-tighter text-neutral-900 sm:text-8xl md:text-[10.5rem] lg:text-[12.5rem] select-none"
-            >
-              {WORD.split("").map((ch, i) => (
-                <motion.span
-                  key={i}
-                  aria-hidden
-                  className="inline-block"
-                  initial={reduce ? false : { opacity: 0, scale: 1.5 }}
-                  animate={reduce ? undefined : { opacity: 1, scale: 1 }}
-                  transition={{
-                    duration: 0.7,
-                    delay: reduce ? 0 : 1.8 + i * 0.08,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                >
-                  {ch}
-                </motion.span>
-              ))}
-            </h1>
-          </div>
-
-          {/* Subheading & CTAs */}
-          <motion.div
-            initial={reduce ? false : { opacity: 0, y: 16 }}
-            animate={reduce ? undefined : { opacity: 1, y: 0 }}
-            transition={{ delay: 2.6, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="relative z-10 mt-6 sm:mt-8 flex max-w-2xl flex-col items-center gap-6 sm:gap-8 px-2 sm:px-4"
-          >
-            <p className="text-sm sm:text-base md:text-lg font-medium text-neutral-600 leading-relaxed max-w-xl mx-auto">
-              Production-grade AI systems engineered end to end —<br className="hidden sm:inline" />{" "}
-              from model architecture to secure global deployment.
-            </p>
-
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 sm:gap-4 w-full sm:w-auto">
-              <Link
-                href="/products"
-                className="group flex items-center justify-center gap-2 rounded-full bg-neutral-950 px-7 py-3.5 text-sm font-bold text-white shadow-lg transition-all duration-200 hover:bg-neutral-800 active:scale-95 w-full sm:w-auto"
+            {WORD.split("").map((ch, i) => (
+              <motion.span
+                key={i}
+                aria-hidden
+                className="inline-block"
+                initial={reduce ? false : { opacity: 0, scale: 1.5 }}
+                animate={reduce ? undefined : { opacity: 1, scale: 1 }}
+                transition={{
+                  duration: 0.7,
+                  delay: reduce ? 0 : 1.8 + i * 0.08,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
               >
-                <span>Explore Products</span>
-                <ArrowRight
-                  size={15}
-                  weight="bold"
-                  className="transition-transform group-hover:translate-x-1"
-                />
-              </Link>
-
-              <Link
-                href="/contact"
-                className="group flex items-center justify-center gap-2 rounded-full border border-neutral-300 bg-white/90 px-7 py-3.5 text-sm font-semibold text-neutral-900 shadow-xs backdrop-blur-sm transition-all duration-200 hover:bg-neutral-100 hover:border-neutral-400 active:scale-95 w-full sm:w-auto"
-              >
-                <TerminalWindow size={16} weight="duotone" />
-                <span>Contact Engineering</span>
-              </Link>
-            </div>
-          </motion.div>
+                {ch}
+              </motion.span>
+            ))}
+          </h1>
         </div>
+
+        {/* Subheading & CTAs */}
+        <motion.div
+          initial={reduce ? false : { opacity: 0, y: 16 }}
+          animate={reduce ? undefined : { opacity: 1, y: 0 }}
+          transition={{ delay: 2.6, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="relative z-10 mt-6 sm:mt-8 flex max-w-2xl flex-col items-center gap-6 sm:gap-8 px-2 sm:px-4"
+        >
+          <p className="text-sm sm:text-base md:text-lg font-medium text-neutral-600 leading-relaxed max-w-xl mx-auto">
+            Production-grade AI systems engineered end to end —<br className="hidden sm:inline" />{" "}
+            from model architecture to secure global deployment.
+          </p>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 sm:gap-4 w-full sm:w-auto">
+            <Link
+              href="/products"
+              className="group flex items-center justify-center gap-2 rounded-full bg-neutral-950 px-7 py-3.5 text-sm font-bold text-white shadow-lg transition-all duration-200 hover:bg-neutral-800 active:scale-95 w-full sm:w-auto"
+            >
+              <span>Explore Products</span>
+              <ArrowRight
+                size={15}
+                weight="bold"
+                className="transition-transform group-hover:translate-x-1"
+              />
+            </Link>
+
+            <Link
+              href="/contact"
+              className="group flex items-center justify-center gap-2 rounded-full border border-neutral-300 bg-white/90 px-7 py-3.5 text-sm font-semibold text-neutral-900 shadow-xs backdrop-blur-sm transition-all duration-200 hover:bg-neutral-100 hover:border-neutral-400 active:scale-95 w-full sm:w-auto"
+            >
+              <TerminalWindow size={16} weight="duotone" />
+              <span>Contact Engineering</span>
+            </Link>
+          </div>
+        </motion.div>
+
+        {/* Charcoal Smile Arc Marquee positioned directly below the CTA buttons */}
+        <motion.div
+          initial={reduce ? false : { opacity: 0, y: 15 }}
+          animate={reduce ? undefined : { opacity: 1, y: 0 }}
+          transition={{ delay: 2.9, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="relative z-10 w-full mt-4 sm:mt-6"
+        >
+          <HeroCradleMarquee />
+        </motion.div>
       </div>
 
       {/* Unique Compelling Interactive Scroll Beacon at Bottom Center */}
       <motion.div
         initial={reduce ? false : { opacity: 0, y: 20 }}
         animate={reduce ? undefined : { opacity: 1, y: 0 }}
-        transition={{ delay: 3.2, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ delay: 3.3, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         className="relative z-10 mt-auto pt-4 flex flex-col items-center justify-center cursor-pointer group select-none"
         onClick={handleScrollToContent}
       >

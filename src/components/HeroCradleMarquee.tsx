@@ -22,9 +22,9 @@ export function HeroCradleMarquee({
   const [textWidth, setTextWidth] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
 
-  const pathId = "hero-cradle-track";
-  // Perfectly proportioned arc: starts at base of M (80, 100), swoops smoothly below CTAs (500, 560), ends at base of E (920, 100)
-  const pathD = "M 75,100 Q 500,570 925,100";
+  const pathId = "hero-under-buttons-arc";
+  // Smooth smile arc starting at left (under M), dipping in center, and rising at right (under E)
+  const pathD = "M 15,20 Q 500,100 985,20";
 
   const isDragging = useRef(false);
   const dragVelocity = useRef(0);
@@ -46,7 +46,7 @@ export function HeroCradleMarquee({
     }
   }, []);
 
-  const calculatedRepeats = spacing > 0 ? Math.ceil((pathLength || 2400) / spacing) + 8 : 0;
+  const calculatedRepeats = spacing > 0 ? Math.ceil((pathLength || 1600) / spacing) + 6 : 0;
   const ready = (pathLength > 0 || textWidth > 0) && spacing > 0;
 
   useEffect(() => {
@@ -71,7 +71,7 @@ export function HeroCradleMarquee({
           moveBy = dragVelocity.current;
           dragVelocity.current *= 0.92;
         } else {
-          moveBy = -(baseVelocity * 3.2) * (delta / 1000) + dragVelocity.current;
+          moveBy = -(baseVelocity * 3) * (delta / 1000) + dragVelocity.current;
           if (Math.abs(dragVelocity.current) > 0.01) {
             dragVelocity.current *= 0.95;
           } else {
@@ -126,18 +126,19 @@ export function HeroCradleMarquee({
 
   return (
     <div
-      className="pointer-events-none absolute inset-0 z-0 select-none overflow-visible flex items-center justify-center"
+      className="relative w-full max-w-4xl lg:max-w-5xl mx-auto select-none overflow-visible py-2"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onFocusCapture={() => setIsHovered(true)}
       onBlurCapture={() => setIsHovered(false)}
       style={{
         visibility: ready ? "visible" : "hidden",
+        height: "110px",
       }}
     >
       <svg
-        viewBox="0 0 1000 620"
-        className="w-full h-full cursor-grab active:cursor-grabbing overflow-visible pointer-events-auto"
+        viewBox="0 0 1000 120"
+        className="w-full h-full block cursor-grab active:cursor-grabbing overflow-visible pointer-events-auto"
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
@@ -154,7 +155,7 @@ export function HeroCradleMarquee({
             fontSize: "11px",
             fontFamily: "var(--font-mono), monospace",
             fontWeight: 800,
-            letterSpacing: "2.5px",
+            letterSpacing: "2px",
           }}
         >
           {processedText}
@@ -163,14 +164,14 @@ export function HeroCradleMarquee({
         <defs>
           <path ref={pathRef} id={pathId} d={pathD} fill="none" />
           
-          <linearGradient id="cradleFade" x1="0%" y1="0%" x2="100%" y2="0%">
+          <linearGradient id="arcFade" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor="white" stopOpacity="0" />
             <stop offset="5%" stopColor="white" stopOpacity="1" />
             <stop offset="95%" stopColor="white" stopOpacity="1" />
             <stop offset="100%" stopColor="white" stopOpacity="0" />
           </linearGradient>
-          <mask id="cradleMask">
-            <rect width="100%" height="100%" fill="url(#cradleFade)" />
+          <mask id="arcMask">
+            <rect width="100%" height="100%" fill="url(#arcFade)" />
           </mask>
         </defs>
 
@@ -179,35 +180,35 @@ export function HeroCradleMarquee({
           d={pathD}
           fill="none"
           stroke="#212121"
-          strokeWidth="34"
+          strokeWidth="36"
           strokeLinecap="round"
-          className="drop-shadow-lg"
-          mask="url(#cradleMask)"
+          className="drop-shadow-md"
+          mask="url(#arcMask)"
         />
 
         {/* Architectural Dashed Border */}
         <path
           d={pathD}
           fill="none"
-          stroke="#444444"
-          strokeWidth="36"
+          stroke="#404040"
+          strokeWidth="38"
           strokeDasharray="4 4"
           strokeLinecap="round"
           className="opacity-70"
-          mask="url(#cradleMask)"
+          mask="url(#arcMask)"
         />
 
         {/* Streaming Text */}
         {ready && (
           <text
             fill={color}
-            fontSize="9.5px"
+            fontSize="10.5px"
             fontFamily="var(--font-mono), monospace"
             fontWeight={800}
-            letterSpacing="2.5px"
+            letterSpacing="2px"
             xmlSpace="preserve"
             dy="3.5"
-            mask="url(#cradleMask)"
+            mask="url(#arcMask)"
           >
             <textPath href={`#${pathId}`} xmlSpace="preserve">
               {Array.from({ length: calculatedRepeats }).map((_, i) => (

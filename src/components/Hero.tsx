@@ -12,7 +12,7 @@ export function Hero() {
   const reduce = useReducedMotion();
 
   return (
-    <section className="relative flex min-h-[85vh] flex-col justify-center overflow-hidden bg-white px-4 sm:px-6 pt-20 sm:pt-24 text-neutral-950">
+    <section className="relative flex min-h-[90vh] flex-col justify-center overflow-hidden bg-white px-3 sm:px-6 pt-20 sm:pt-24 text-neutral-950">
       {/* white bg — black lines fade in, then curtain opens from center outward */}
       {!reduce && (
         <div
@@ -43,10 +43,10 @@ export function Hero() {
       )}
 
       {/* MENTEE */}
-      <div className="relative flex min-h-[35vh] sm:min-h-[42vh] md:min-h-[50vh] items-center justify-center overflow-hidden px-1 sm:px-2">
+      <div className="relative flex min-h-[40vh] sm:min-h-[42vh] md:min-h-[50vh] items-center justify-center overflow-hidden px-0 sm:px-2">
         <h1
           aria-label={WORD}
-          className="relative flex text-[2.75rem] font-black leading-none tracking-tighter text-neutral-900 sm:text-7xl sm:tracking-tight md:text-[10rem] lg:text-[12rem] select-none"
+          className="relative flex text-[3.5rem] font-black leading-none tracking-tighter text-neutral-900 sm:text-7xl sm:tracking-tight md:text-[10rem] lg:text-[12rem] select-none"
         >
           {WORD.split("").map((ch, i) => (
             <motion.span
@@ -107,7 +107,7 @@ export function Hero() {
         initial={reduce ? false : { opacity: 0 }}
         animate={reduce ? undefined : { opacity: 1 }}
         transition={{ delay: 3.8, duration: 0.6 }}
-        className="absolute bottom-10 right-6 flex items-center gap-2 text-[12px] font-medium text-neutral-400"
+        className="absolute bottom-6 right-4 sm:bottom-10 sm:right-6 flex items-center gap-2 text-[11px] sm:text-[12px] font-medium text-neutral-400"
       >
         <span>Scroll</span>
         <motion.svg

@@ -37,11 +37,11 @@ export function FAQ() {
   return (
     <section
       id="faq"
-      className="relative scroll-mt-20 border-t border-neutral-200 bg-white px-6 py-28 text-neutral-950"
+      className="relative scroll-mt-20 border-t border-neutral-200 bg-white px-4 sm:px-6 py-16 sm:py-28 text-neutral-950"
     >
       <div className="mx-auto max-w-3xl">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-10 sm:mb-16">
           <div className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-neutral-50 px-3.5 py-1 text-xs font-mono font-semibold text-neutral-700 mb-4 shadow-xs">
             <Question size={13} />
             <span>KNOWLEDGE BASE</span>
@@ -63,13 +63,13 @@ export function FAQ() {
                 <button
                   onClick={() => setOpen(isOpen ? null : i)}
                   aria-expanded={isOpen}
-                  className="flex w-full items-center justify-between gap-4 py-4 text-left group"
+                  className="flex w-full items-center justify-between gap-3 sm:gap-4 py-3 sm:py-4 text-left group"
                 >
-                  <span className="text-base sm:text-lg font-bold text-neutral-950 group-hover:text-neutral-700 transition-colors">
+                  <span className="text-sm sm:text-base md:text-lg font-bold text-neutral-950 group-hover:text-neutral-700 transition-colors">
                     {f.q}
                   </span>
-                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-neutral-200 bg-neutral-50 text-neutral-600 group-hover:border-neutral-400 group-hover:text-black transition-all">
-                    {isOpen ? <Minus size={15} /> : <Plus size={15} />}
+                  <div className="flex h-7 sm:h-8 w-7 sm:w-8 shrink-0 items-center justify-center rounded-full border border-neutral-200 bg-neutral-50 text-neutral-600 group-hover:border-neutral-400 group-hover:text-black transition-all">
+                    {isOpen ? <Minus size={14} /> : <Plus size={14} />}
                   </div>
                 </button>
                 <AnimatePresence initial={false}>
@@ -81,7 +81,7 @@ export function FAQ() {
                       transition={{ duration: 0.25, ease: "easeOut" }}
                       className="overflow-hidden"
                     >
-                      <p className="pb-6 text-sm leading-relaxed text-neutral-600 font-normal">
+                      <p className="pb-5 sm:pb-6 text-xs sm:text-sm leading-relaxed text-neutral-600 font-normal">
                         {f.a}
                       </p>
                     </motion.div>

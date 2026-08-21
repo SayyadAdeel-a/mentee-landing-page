@@ -89,8 +89,15 @@ export function CoverflowCards() {
   .MenteE_Coverflow .swiper-slide {
     background-position: center;
     background-size: cover;
-    width: 320px;
-    height: 380px;
+    width: 280px;
+    height: 340px;
+  }
+
+  @media (min-width: 640px) {
+    .MenteE_Coverflow .swiper-slide {
+      width: 320px;
+      height: 380px;
+    }
   }
 
   .swiper-pagination-bullet {
@@ -121,13 +128,13 @@ export function CoverflowCards() {
       aria-label="Explore the MenteE Suite in 3D"
       onKeyDown={handleKeyDown}
       tabIndex={0}
-      className="relative w-full overflow-hidden bg-neutral-50/60 py-24 border-t border-neutral-200 text-neutral-950 focus-visible:outline-none"
+      className="relative w-full overflow-hidden bg-neutral-50/60 py-16 sm:py-24 border-t border-neutral-200 text-neutral-950 focus-visible:outline-none"
     >
       <style>{css}</style>
 
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
         {/* Section Header */}
-        <div className="mx-auto max-w-3xl text-center mb-12">
+        <div className="mx-auto max-w-3xl text-center mb-8 sm:mb-12">
           <div className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white px-3.5 py-1 text-xs font-mono font-semibold text-neutral-700 mb-4 shadow-xs">
             <Sparkle size={13} className="text-neutral-900" />
             <span>INTERACTIVE PLATFORM CAROUSEL</span>
@@ -135,7 +142,7 @@ export function CoverflowCards() {
           <h2 className="text-3xl font-extrabold tracking-tight text-neutral-950 sm:text-5xl">
             Explore the MenteE Suite in 3D
           </h2>
-          <p className="mt-4 text-base text-neutral-600 leading-relaxed font-normal">
+          <p className="mt-4 text-sm sm:text-base text-neutral-600 leading-relaxed font-normal">
             Drag, arrow keys, or tab through our deployed platforms, open-source libraries, and security vaults.
           </p>
         </div>
@@ -188,13 +195,13 @@ export function CoverflowCards() {
             {PLATFORM_CARDS.map((card, index) => (
               <SwiperSlide key={index} aria-label={`Platform ${index + 1} of ${PLATFORM_CARDS.length}: ${card.title}`}>
                 <div className={cn(
-                  "flex h-full w-full flex-col justify-between rounded-3xl border bg-white p-7 shadow-xl transition-all duration-300 focus-within:ring-2 focus-within:ring-neutral-950",
+                  "flex h-full w-full flex-col justify-between rounded-3xl border bg-white p-5 sm:p-7 shadow-xl transition-all duration-300 focus-within:ring-2 focus-within:ring-neutral-950",
                   card.accent
                 )}>
                   <div>
                     <div className="flex items-center justify-between">
                       <span className={cn(
-                        "rounded-full px-2.5 py-0.5 font-mono text-[10px] font-bold uppercase",
+                        "rounded-full px-2 sm:px-2.5 py-0.5 font-mono text-[9px] sm:text-[10px] font-bold uppercase",
                         card.badgeColor
                       )}>
                         {card.tag}
@@ -202,20 +209,20 @@ export function CoverflowCards() {
                       <span className="font-mono text-xs font-bold text-neutral-400">0{index + 1}</span>
                     </div>
 
-                    <h3 className="mt-5 text-2xl font-black text-neutral-950">
+                    <h3 className="mt-4 sm:mt-5 text-xl sm:text-2xl font-black text-neutral-950">
                       {card.title}
                     </h3>
-                    <p className="text-xs font-bold text-neutral-500 font-mono mt-0.5">
+                    <p className="text-[10px] sm:text-xs font-bold text-neutral-500 font-mono mt-0.5">
                       {card.subtitle}
                     </p>
 
-                    <p className="mt-4 text-sm leading-relaxed text-neutral-700 font-normal">
+                    <p className="mt-3 sm:mt-4 text-xs sm:text-sm leading-relaxed text-neutral-700 font-normal">
                       {card.desc}
                     </p>
                   </div>
 
-                  <div className="border-t border-neutral-200/80 pt-4">
-                    <p className="text-[11px] font-mono font-semibold text-neutral-500 mb-3">
+                  <div className="border-t border-neutral-200/80 pt-3 sm:pt-4">
+                    <p className="text-[10px] sm:text-[11px] font-mono font-semibold text-neutral-500 mb-3">
                       {card.metrics}
                     </p>
                     <Link

@@ -169,7 +169,7 @@ export function CurvedMarqueeSection() {
   return (
     <section
       aria-label="Production Infrastructure & Technology Stack"
-      className="relative w-full overflow-hidden bg-white py-16 border-y border-neutral-200"
+      className="relative w-full overflow-hidden bg-white py-10 sm:py-16 border-y border-neutral-200"
       onMouseEnter={() => setHoverPaused(true)}
       onMouseLeave={() => setHoverPaused(false)}
       onFocusCapture={() => setFocusPaused(true)}
@@ -179,7 +179,7 @@ export function CurvedMarqueeSection() {
       <div className="ambient-grid-light pointer-events-none absolute inset-0 opacity-25" />
 
       {/* Section Header with Clear Title, Context, and Accessible Pause Controller */}
-      <div className="relative mx-auto max-w-4xl px-6 text-center mb-10">
+      <div className="relative mx-auto max-w-4xl px-4 sm:px-6 text-center mb-8 sm:mb-10">
         <div className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-neutral-50 px-3.5 py-1 text-xs font-mono font-semibold text-neutral-700 mb-3 shadow-xs">
           <Sparkle size={13} weight="fill" className="text-neutral-900" />
           <span>PRODUCTION INFRASTRUCTURE & STACK</span>

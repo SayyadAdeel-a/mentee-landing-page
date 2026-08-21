@@ -5,8 +5,8 @@ import { ArrowUpRight, GithubLogo, LinkedinLogo, XLogo, Globe } from "@phosphor-
 export function Footer() {
   return (
     <footer className="border-t border-neutral-200 bg-white text-neutral-950">
-      <div className="mx-auto max-w-7xl px-6 py-16">
-        <div className="grid gap-12 lg:grid-cols-12">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-10 sm:py-16">
+        <div className="grid gap-8 sm:gap-12 lg:grid-cols-12">
           {/* Brand & Mission */}
           <div className="lg:col-span-4">
             <Link href="/" className="flex items-center gap-2.5">
@@ -182,7 +182,7 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-neutral-200 pt-6 text-xs text-neutral-500 sm:flex-row">
+        <div className="mt-10 sm:mt-14 flex flex-col items-center justify-between gap-4 border-t border-neutral-200 pt-6 text-xs text-neutral-500 sm:flex-row">
           <p>© 2026 MenteE™. All rights reserved. Production AI Ecosystem.</p>
           <div className="flex items-center gap-6 font-medium">
             <Link href="/privacy" className="transition-colors hover:text-black">

@@ -153,17 +153,17 @@ export function Approach() {
     <section
       id="approach"
       ref={container}
-      className="relative w-full bg-neutral-50/70 border-t border-neutral-200 text-neutral-950 py-16"
+      className="relative w-full bg-neutral-50/70 border-t border-neutral-200 text-neutral-950 py-10 sm:py-16"
     >
       <div className="ambient-grid-light pointer-events-none absolute inset-0 opacity-40" />
 
       {/* Header */}
-      <div className="mx-auto max-w-4xl px-6 text-center mb-8">
+      <div className="mx-auto max-w-4xl px-4 sm:px-6 text-center mb-6 sm:mb-8">
         <div className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white px-4 py-1.5 text-xs font-mono font-semibold text-neutral-700 mb-3 shadow-xs">
           <ArrowsClockwise size={14} />
           <span>ENGINEERING METHODOLOGY</span>
         </div>
-        <h2 className="text-3xl font-extrabold tracking-tight text-neutral-950 sm:text-5xl">
+        <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-neutral-950 sm:text-5xl">
           From concept to production. We build, not consult.
         </h2>
         <p className="mt-3 text-sm sm:text-base text-neutral-600 leading-relaxed font-normal">
@@ -172,8 +172,8 @@ export function Approach() {
       </div>
 
       {/* GSAP Sticky Stacked Stage */}
-      <div className="relative flex min-h-[580px] sm:min-h-[600px] w-full items-center justify-center overflow-hidden px-4 sm:px-8">
-        <div className="relative h-[560px] sm:h-[580px] md:h-[600px] w-full max-w-6xl">
+      <div className="relative flex min-h-[520px] sm:min-h-[600px] w-full items-center justify-center overflow-hidden px-3 sm:px-4 md:px-8">
+        <div className="relative h-[500px] sm:h-[580px] md:h-[600px] w-full max-w-6xl">
           {PHASES.map((phase, i) => {
             const Icon = phase.icon;
             return (
@@ -192,8 +192,8 @@ export function Approach() {
               >
                 {/* Top Section */}
                 <div>
-                  <div className="flex items-center justify-between border-b border-neutral-100 pb-5">
-                    <div className="flex items-center gap-3.5">
+                  <div className="flex items-center justify-between border-b border-neutral-100 pb-3 sm:pb-5">
+                    <div className="flex items-center gap-2 sm:gap-3.5">
                       <span className="font-mono text-sm font-bold text-neutral-400">
                         PHASE {phase.num}
                       </span>
@@ -212,7 +212,7 @@ export function Approach() {
                   </div>
 
                   {/* Body Content Grid */}
-                  <div className="mt-6 grid gap-6 lg:grid-cols-12 lg:items-start">
+                  <div className="mt-4 sm:mt-6 grid gap-4 sm:gap-6 lg:grid-cols-12 lg:items-start">
                     {/* Left Column */}
                     <div className="lg:col-span-6">
                       <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-neutral-950">
@@ -238,7 +238,7 @@ export function Approach() {
                     </div>
 
                     {/* Right Column: Highlights Checklist */}
-                    <div className="lg:col-span-6 rounded-2xl border border-neutral-200 bg-neutral-50/70 p-5 sm:p-6">
+                    <div className="lg:col-span-6 rounded-2xl border border-neutral-200 bg-neutral-50/70 p-4 sm:p-6">
                       <p className="font-mono text-xs font-bold uppercase tracking-wider text-neutral-900 mb-3 flex items-center gap-2">
                         <TerminalWindow size={15} />
                         <span>Core Deliverables & Standards</span>
@@ -266,7 +266,7 @@ export function Approach() {
                     <span className="h-2 w-2 rounded-full bg-emerald-500" />
                     {phase.metric}
                   </span>
-                  <span className="text-neutral-950 font-bold bg-neutral-100 border border-neutral-200 px-3 py-1 rounded-full">
+                  <span className="text-neutral-950 font-bold bg-neutral-100 border border-neutral-200 px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs">
                     Step {phase.num} / 03
                   </span>
                 </div>

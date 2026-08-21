@@ -122,12 +122,12 @@ export function Capabilities() {
   });
 
   return (
-    <section id="capabilities" className="relative mx-auto max-w-7xl px-6 py-24 bg-white text-neutral-950">
+    <section id="capabilities" className="relative mx-auto max-w-7xl px-4 sm:px-6 py-16 sm:py-24 bg-white text-neutral-950">
       {/* Subtle Background Glow */}
       <div className="ambient-grid-light pointer-events-none absolute inset-0 opacity-25" />
 
       {/* Header */}
-      <div className="relative mx-auto max-w-3xl text-center mb-12">
+      <div className="relative mx-auto max-w-3xl text-center mb-8 sm:mb-12">
         <div className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-neutral-50 px-4 py-1 text-xs font-mono font-semibold text-neutral-800 mb-4 shadow-xs">
           <Sparkle size={13} weight="fill" className="text-neutral-900" />
           <span>SYSTEM CAPABILITIES // ARCHITECTURE MATRIX</span>
@@ -135,19 +135,19 @@ export function Capabilities() {
         <h2 className="text-3xl font-extrabold tracking-tight text-neutral-950 sm:text-5xl">
           Core platform architecture & powers
         </h2>
-        <p className="mt-4 text-base text-neutral-600 leading-relaxed font-normal">
+        <p className="mt-4 text-sm sm:text-base text-neutral-600 leading-relaxed font-normal">
           Architected for zero-latency execution, hardware-enclave cryptographic resilience, and native enterprise orchestration.
         </p>
 
         {/* Filter Category Pills */}
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
+        <div className="mt-6 sm:mt-8 flex flex-wrap items-center justify-center gap-2">
           {CATEGORIES.map((cat) => {
             const isActive = activeTab === cat.key;
             return (
               <button
                 key={cat.key}
                 onClick={() => setActiveTab(cat.key)}
-                className={`rounded-full px-4 py-1.5 text-xs font-mono font-semibold transition-all duration-200 shadow-2xs ${
+                className={`rounded-full px-3 sm:px-4 py-1.5 text-[10px] sm:text-xs font-mono font-semibold transition-all duration-200 shadow-2xs ${
                   isActive
                     ? "bg-neutral-950 text-white shadow-sm"
                     : "border border-neutral-200 bg-neutral-50 text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900"
@@ -161,7 +161,7 @@ export function Capabilities() {
       </div>
 
       {/* Architectural Matrix Grid */}
-      <div className="relative grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="relative grid gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
         <AnimatePresence mode="popLayout">
           {filteredCapabilities.map((cap) => {
             const Icon = cap.icon;
@@ -174,46 +174,46 @@ export function Capabilities() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.3 }}
-                className="group relative flex flex-col justify-between rounded-3xl border border-neutral-200/90 bg-white p-7 shadow-xs hover:shadow-md hover:border-neutral-400 transition-all duration-300"
+                className="group relative flex flex-col justify-between rounded-3xl border border-neutral-200/90 bg-white p-5 sm:p-7 shadow-xs hover:shadow-md hover:border-neutral-400 transition-all duration-300"
               >
                 <div>
                   {/* Top Bar with System Index and Benchmark Pill */}
-                  <div className="flex items-center justify-between pb-4 border-b border-neutral-100">
+                  <div className="flex items-center justify-between pb-3 sm:pb-4 border-b border-neutral-100">
                     <span className="font-mono text-xs font-bold text-neutral-400">
                       {cap.index}
                     </span>
-                    <div className="flex items-center gap-1.5 rounded-full border border-neutral-200 bg-neutral-50 px-2.5 py-0.5 font-mono text-[10px] font-bold text-neutral-800">
+                    <div className="flex items-center gap-1.5 rounded-full border border-neutral-200 bg-neutral-50 px-2 sm:px-2.5 py-0.5 font-mono text-[9px] sm:text-[10px] font-bold text-neutral-800">
                       <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
                       <span>{cap.metric}</span>
                       <span className="text-neutral-400">·</span>
-                      <span className="text-neutral-500">{cap.metricLabel}</span>
+                      <span className="text-neutral-500 hidden sm:inline">{cap.metricLabel}</span>
                     </div>
                   </div>
 
                   {/* Icon & Title */}
-                  <div className="mt-5 flex items-center gap-3">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-neutral-100 border border-neutral-200 text-neutral-950 shadow-xs group-hover:scale-105 group-hover:bg-neutral-950 group-hover:text-white transition-all duration-300">
-                      <Icon size={24} weight="duotone" />
+                  <div className="mt-4 sm:mt-5 flex items-center gap-3">
+                    <div className="flex h-10 sm:h-12 w-10 sm:w-12 items-center justify-center rounded-2xl bg-neutral-100 border border-neutral-200 text-neutral-950 shadow-xs group-hover:scale-105 group-hover:bg-neutral-950 group-hover:text-white transition-all duration-300">
+                      <Icon size={22} weight="duotone" />
                     </div>
                     <div>
-                      <span className="text-[10px] font-mono font-bold text-neutral-500 uppercase tracking-wider">
+                      <span className="text-[9px] sm:text-[10px] font-mono font-bold text-neutral-500 uppercase tracking-wider">
                         {cap.tag}
                       </span>
-                      <h3 className="text-lg font-bold text-neutral-950 leading-snug">
+                      <h3 className="text-base sm:text-lg font-bold text-neutral-950 leading-snug">
                         {cap.title}
                       </h3>
                     </div>
                   </div>
 
                   {/* Description */}
-                  <p className="mt-4 text-xs sm:text-sm leading-relaxed text-neutral-600 font-normal">
+                  <p className="mt-3 sm:mt-4 text-xs sm:text-sm leading-relaxed text-neutral-600 font-normal">
                     {cap.desc}
                   </p>
 
                   {/* Architectural Specs Checklist */}
-                  <div className="mt-5 space-y-2 border-t border-neutral-100 pt-4">
+                  <div className="mt-4 sm:mt-5 space-y-2 border-t border-neutral-100 pt-3 sm:pt-4">
                     {cap.specs.map((spec, i) => (
-                      <div key={i} className="flex items-center gap-2 text-xs font-mono text-neutral-700">
+                      <div key={i} className="flex items-center gap-2 text-[11px] sm:text-xs font-mono text-neutral-700">
                         <CheckCircle size={13} weight="fill" className="text-neutral-950 shrink-0" />
                         <span>{spec}</span>
                       </div>
@@ -222,7 +222,7 @@ export function Capabilities() {
                 </div>
 
                 {/* Footer Action Link */}
-                <div className="mt-6 flex items-center justify-between border-t border-neutral-100 pt-4 text-xs font-semibold">
+                <div className="mt-5 sm:mt-6 flex items-center justify-between border-t border-neutral-100 pt-3 sm:pt-4 text-xs font-semibold">
                   <span className="text-neutral-400 font-mono">Status: Verified</span>
                   <Link
                     href="/products"
@@ -239,13 +239,13 @@ export function Capabilities() {
       </div>
 
       {/* Bottom Diagnostic Banner Styled in Charcoal #212121 */}
-      <div className="mt-12 rounded-3xl border border-[#333333] bg-[#212121] p-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl text-white">
-        <div className="flex items-center gap-4">
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#2a2a2a] border border-[#444444] text-white shadow-xs shrink-0">
-            <TerminalWindow size={24} weight="duotone" />
+      <div className="mt-10 sm:mt-12 rounded-3xl border border-[#333333] bg-[#212121] p-5 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-5 sm:gap-6 shadow-xl text-white">
+        <div className="flex items-center gap-3 sm:gap-4">
+          <div className="flex h-10 sm:h-12 w-10 sm:w-12 items-center justify-center rounded-2xl bg-[#2a2a2a] border border-[#444444] text-white shadow-xs shrink-0">
+            <TerminalWindow size={22} weight="duotone" />
           </div>
           <div>
-            <h4 className="text-base font-bold text-white">
+            <h4 className="text-sm sm:text-base font-bold text-white">
               Need custom algorithmic modules or private cluster deployment?
             </h4>
             <p className="text-xs text-neutral-300 mt-1 font-normal">

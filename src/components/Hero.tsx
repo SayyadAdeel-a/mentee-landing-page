@@ -19,11 +19,11 @@ export function Hero() {
       <div className="ambient-grid-light pointer-events-none absolute inset-0 opacity-40" />
       <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[500px] w-[800px] rounded-full bg-neutral-950/[0.02] blur-3xl" />
 
-      {/* 100 vertical curtain lines animation - Behind content */}
+      {/* 100 vertical curtain lines animation - Phase 1 (0s to 2.2s) */}
       {!reduce && (
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 flex z-0 opacity-25"
+          className="pointer-events-none absolute inset-0 flex z-0 opacity-80"
         >
           {Array.from({ length: COUNT }, (_, i) => {
             const dist = Math.abs(MIDDLE - i);
@@ -32,15 +32,15 @@ export function Hero() {
             return (
               <motion.span
                 key={i}
-                className="h-full flex-1 bg-neutral-900"
+                className="h-full flex-1 bg-neutral-950"
                 style={{ transformOrigin: "center" }}
-                initial={{ scaleX: 0.8, opacity: 0 }}
-                animate={{ scaleX: 0.8, opacity: [0, 0.8, 0.8, 0] }}
+                initial={{ scaleX: 1, opacity: 0 }}
+                animate={{ scaleX: [0.2, 1, 1, 0.2], opacity: [0, 0.9, 0.9, 0] }}
                 transition={{
-                  duration: 2.2,
-                  delay: normalizedDist * 0.35,
+                  duration: 2.0,
+                  delay: normalizedDist * 0.3,
                   ease: "easeInOut",
-                  times: [0, 0.2, 0.7, 1],
+                  times: [0, 0.25, 0.75, 1],
                 }}
               />
             );
@@ -50,11 +50,11 @@ export function Hero() {
 
       {/* Main Content Container */}
       <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-1 flex-col items-center justify-center text-center my-auto">
-        {/* Top Status & Pill Badge */}
+        {/* Top Status & Pill Badge - Reveals as lines disappear */}
         <motion.div
-          initial={{ opacity: 0, y: -10 }}
+          initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.5, delay: reduce ? 0 : 2.1 }}
           className="mb-5 inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-neutral-50/90 px-4 py-1.5 shadow-2xs backdrop-blur-md"
         >
           <span className="flex h-2 w-2 rounded-full bg-emerald-500">
@@ -66,7 +66,7 @@ export function Hero() {
           />
         </motion.div>
 
-        {/* Signature MENTEE Typography */}
+        {/* Signature MENTEE Typography - Phase 2: Reveals sequentially right as lines disappear (2.0s+) */}
         <div className="relative flex items-center justify-center overflow-hidden py-1 w-full">
           <h1
             aria-label={WORD}
@@ -77,12 +77,12 @@ export function Hero() {
                 key={i}
                 aria-hidden="true"
                 className="inline-block"
-                initial={reduce ? false : { opacity: 0, y: 30 }}
+                initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
-                  duration: 0.5,
-                  delay: reduce ? 0 : 0.15 + i * 0.05,
-                  ease: "easeOut",
+                  duration: 0.6,
+                  delay: reduce ? 0 : 2.0 + i * 0.08,
+                  ease: [0.22, 1, 0.36, 1],
                 }}
               >
                 {ch}
@@ -93,19 +93,19 @@ export function Hero() {
 
         {/* Curved Marquee Ribbon nested directly below MENTEE spanning from M to EE */}
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
+          initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.35 }}
+          transition={{ duration: 0.7, delay: reduce ? 0 : 2.5 }}
           className="w-full"
         >
           <HeroCurvedMarquee />
         </motion.div>
 
-        {/* Sub-headline & Contextual Value Prop */}
+        {/* Sub-headline & Contextual Value Prop - Phase 3 */}
         <motion.p
-          initial={{ opacity: 0, y: 15 }}
+          initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.45 }}
+          transition={{ duration: 0.6, delay: reduce ? 0 : 2.7 }}
           className="mt-2 max-w-2xl text-base sm:text-lg text-neutral-600 font-medium leading-relaxed"
         >
           Engineering autonomous workflow orchestration, zero-knowledge document intelligence, and high-throughput AI ecosystems for production at scale.
@@ -113,9 +113,9 @@ export function Hero() {
 
         {/* Dual Call to Action Buttons */}
         <motion.div
-          initial={{ opacity: 0, y: 15 }}
+          initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.55 }}
+          transition={{ duration: 0.6, delay: reduce ? 0 : 2.9 }}
           className="mt-8 flex flex-wrap items-center justify-center gap-4"
         >
           <Link
@@ -140,9 +140,9 @@ export function Hero() {
 
         {/* Floating Founder & Studio Attribution Badge */}
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
+          initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.65 }}
+          transition={{ duration: 0.6, delay: reduce ? 0 : 3.1 }}
           className="mt-8"
         >
           <a

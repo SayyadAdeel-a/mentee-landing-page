@@ -20,7 +20,7 @@ export function Hero() {
   };
 
   return (
-    <section className="relative flex min-h-[95vh] sm:min-h-screen flex-col items-center justify-between overflow-hidden bg-white px-4 sm:px-6 pt-24 pb-8 sm:pb-12 text-neutral-950">
+    <section className="relative flex min-h-[92vh] sm:min-h-screen flex-col items-center justify-between overflow-hidden bg-white px-4 sm:px-6 pt-24 pb-8 sm:pb-12 text-neutral-950">
       {/* Background white bg — black lines fade in, then curtain opens from center outward */}
       {!reduce && (
         <div
@@ -52,8 +52,18 @@ export function Hero() {
 
       {/* Main Center Content Wrapper */}
       <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-1 flex-col items-center justify-center text-center my-auto">
+        {/* Charcoal Smile Arc Marquee positioned directly above the MENTEE title */}
+        <motion.div
+          initial={reduce ? false : { opacity: 0, y: -10 }}
+          animate={reduce ? undefined : { opacity: 1, y: 0 }}
+          transition={{ delay: 2.5, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="relative z-30 w-full mb-1 sm:mb-2"
+        >
+          <HeroCradleMarquee />
+        </motion.div>
+
         {/* Signature MENTEE Title */}
-        <div className="relative z-10 flex w-full items-center justify-center overflow-visible py-2">
+        <div className="relative z-10 flex w-full items-center justify-center overflow-visible py-1">
           <h1
             aria-label={WORD}
             className="relative flex text-[3.75rem] font-black leading-none tracking-tighter text-neutral-900 sm:text-8xl md:text-[10.5rem] lg:text-[12.5rem] select-none"
@@ -111,23 +121,13 @@ export function Hero() {
             </Link>
           </div>
         </motion.div>
-
-        {/* Charcoal Smile Arc Marquee positioned directly below the CTA buttons */}
-        <motion.div
-          initial={reduce ? false : { opacity: 0, y: 15 }}
-          animate={reduce ? undefined : { opacity: 1, y: 0 }}
-          transition={{ delay: 2.9, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="relative z-30 w-full mt-4 sm:mt-6"
-        >
-          <HeroCradleMarquee />
-        </motion.div>
       </div>
 
       {/* Unique Compelling Interactive Scroll Beacon at Bottom Center */}
       <motion.div
         initial={reduce ? false : { opacity: 0, y: 20 }}
         animate={reduce ? undefined : { opacity: 1, y: 0 }}
-        transition={{ delay: 3.3, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ delay: 3.2, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         className="relative z-10 mt-auto pt-4 flex flex-col items-center justify-center cursor-pointer group select-none"
         onClick={handleScrollToContent}
       >

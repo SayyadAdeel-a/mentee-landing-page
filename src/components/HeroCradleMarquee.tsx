@@ -22,9 +22,9 @@ export function HeroCradleMarquee({
   const [textWidth, setTextWidth] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
 
-  const pathId = "hero-under-buttons-arc";
-  // Smooth smile arc starting at left (under M), dipping in center, and rising at right (under E)
-  const pathD = "M 15,20 Q 500,100 985,20";
+  const pathId = "hero-top-arc-track";
+  // Smooth gentle arc spanning horizontally across the hero
+  const pathD = "M 15,25 Q 500,85 985,25";
 
   const isDragging = useRef(false);
   const dragVelocity = useRef(0);
@@ -126,18 +126,18 @@ export function HeroCradleMarquee({
 
   return (
     <div
-      className="relative z-30 pointer-events-auto w-full max-w-4xl lg:max-w-5xl mx-auto select-none overflow-visible py-2"
+      className="relative z-30 pointer-events-auto w-full max-w-4xl lg:max-w-5xl mx-auto select-none overflow-visible py-1"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onFocusCapture={() => setIsHovered(true)}
       onBlurCapture={() => setIsHovered(false)}
       style={{
         visibility: ready ? "visible" : "hidden",
-        height: "110px",
+        height: "90px",
       }}
     >
       <svg
-        viewBox="0 0 1000 120"
+        viewBox="0 0 1000 110"
         className="w-full h-full block cursor-grab active:cursor-grabbing overflow-visible pointer-events-auto"
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
@@ -180,7 +180,7 @@ export function HeroCradleMarquee({
           d={pathD}
           fill="none"
           stroke="#212121"
-          strokeWidth="36"
+          strokeWidth="34"
           strokeLinecap="round"
           className="drop-shadow-md"
           mask="url(#arcMask)"
@@ -191,7 +191,7 @@ export function HeroCradleMarquee({
           d={pathD}
           fill="none"
           stroke="#404040"
-          strokeWidth="38"
+          strokeWidth="36"
           strokeDasharray="4 4"
           strokeLinecap="round"
           className="opacity-70"
@@ -202,7 +202,7 @@ export function HeroCradleMarquee({
         {ready && (
           <text
             fill={color}
-            fontSize="10.5px"
+            fontSize="10px"
             fontFamily="var(--font-mono), monospace"
             fontWeight={800}
             letterSpacing="2px"

@@ -23,8 +23,8 @@ export function HeroCradleMarquee({
   const [isHovered, setIsHovered] = useState(false);
 
   const pathId = "hero-cradle-track";
-  // Smooth geometric arc starting at start of M (30,45), arcing down below CTAs (500,435), rising to end of E (970,45)
-  const pathD = "M 30,45 Q 500,435 970,45";
+  // Perfectly proportioned arc: starts at base of M (80, 100), swoops smoothly below CTAs (500, 560), ends at base of E (920, 100)
+  const pathD = "M 75,100 Q 500,570 925,100";
 
   const isDragging = useRef(false);
   const dragVelocity = useRef(0);
@@ -136,8 +136,8 @@ export function HeroCradleMarquee({
       }}
     >
       <svg
-        viewBox="0 0 1000 450"
-        className="w-full h-full max-w-5xl cursor-grab active:cursor-grabbing overflow-visible pointer-events-auto"
+        viewBox="0 0 1000 620"
+        className="w-full h-full cursor-grab active:cursor-grabbing overflow-visible pointer-events-auto"
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
@@ -165,8 +165,8 @@ export function HeroCradleMarquee({
           
           <linearGradient id="cradleFade" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor="white" stopOpacity="0" />
-            <stop offset="4%" stopColor="white" stopOpacity="1" />
-            <stop offset="96%" stopColor="white" stopOpacity="1" />
+            <stop offset="5%" stopColor="white" stopOpacity="1" />
+            <stop offset="95%" stopColor="white" stopOpacity="1" />
             <stop offset="100%" stopColor="white" stopOpacity="0" />
           </linearGradient>
           <mask id="cradleMask">
@@ -179,7 +179,7 @@ export function HeroCradleMarquee({
           d={pathD}
           fill="none"
           stroke="#212121"
-          strokeWidth="36"
+          strokeWidth="34"
           strokeLinecap="round"
           className="drop-shadow-lg"
           mask="url(#cradleMask)"
@@ -189,8 +189,8 @@ export function HeroCradleMarquee({
         <path
           d={pathD}
           fill="none"
-          stroke="#404040"
-          strokeWidth="38"
+          stroke="#444444"
+          strokeWidth="36"
           strokeDasharray="4 4"
           strokeLinecap="round"
           className="opacity-70"
@@ -201,7 +201,7 @@ export function HeroCradleMarquee({
         {ready && (
           <text
             fill={color}
-            fontSize="10px"
+            fontSize="9.5px"
             fontFamily="var(--font-mono), monospace"
             fontWeight={800}
             letterSpacing="2.5px"

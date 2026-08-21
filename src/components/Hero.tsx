@@ -1,8 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, TerminalWindow } from "@phosphor-icons/react";
+import { ArrowRight, TerminalWindow, Copy, Check, Sparkle } from "@phosphor-icons/react";
 import { ShinyText } from "@/components/ui/ShinyText";
 
 const WORD = "MENTEE";
@@ -11,17 +12,25 @@ const MIDDLE = (COUNT - 1) / 2;
 
 export function Hero() {
   const reduce = useReducedMotion();
+  const [copied, setCopied] = useState(false);
+
+  const copyCommand = () => {
+    navigator.clipboard.writeText("pip install datafit");
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   return (
-    <section className="relative flex min-h-[75vh] sm:min-h-[80vh] flex-col justify-center overflow-hidden bg-white px-6 pt-16 pb-16 text-neutral-950">
-      {/* Background Ambient Grid */}
+    <section className="relative flex min-h-[85vh] flex-col justify-center overflow-hidden bg-white px-6 pt-32 pb-20 sm:pt-36 sm:pb-24 text-neutral-950">
+      {/* Background Ambient Grid & Radial Depth */}
       <div className="ambient-grid-light pointer-events-none absolute inset-0 opacity-40" />
+      <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[500px] w-[800px] rounded-full bg-neutral-950/[0.02] blur-3xl" />
 
       {/* 100 vertical curtain lines animation - Behind content */}
       {!reduce && (
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 flex z-0 opacity-30"
+          className="pointer-events-none absolute inset-0 flex z-0 opacity-25"
         >
           {Array.from({ length: COUNT }, (_, i) => {
             const dist = Math.abs(MIDDLE - i);
@@ -53,14 +62,14 @@ export function Hero() {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="mb-4 inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-neutral-50 px-4 py-1.5 shadow-xs"
+          className="mb-5 inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-neutral-50/80 px-4 py-1.5 shadow-2xs backdrop-blur-md"
         >
           <span className="flex h-2 w-2 rounded-full bg-emerald-500">
             <span className="h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75" />
           </span>
           <ShinyText
             text="Autonomous AI Ecosystem · Production Ready"
-            className="text-xs font-bold tracking-wide"
+            className="text-xs font-bold tracking-wide text-neutral-800"
           />
         </motion.div>
 
@@ -68,7 +77,7 @@ export function Hero() {
         <div className="relative flex items-center justify-center overflow-hidden py-1 w-full">
           <h1
             aria-label={WORD}
-            className="relative flex text-6xl font-black leading-none tracking-tighter text-neutral-950 sm:text-8xl md:text-[9.5rem] lg:text-[11rem] select-none"
+            className="relative flex text-6xl font-black leading-none tracking-tighter text-neutral-950 sm:text-8xl md:text-[9.5rem] lg:text-[11.5rem] select-none drop-shadow-xs"
           >
             {WORD.split("").map((ch, i) => (
               <motion.span
@@ -94,7 +103,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-4 max-w-2xl text-base sm:text-lg text-neutral-600 font-medium leading-relaxed"
+          className="mt-5 max-w-2xl text-base sm:text-lg text-neutral-600 font-medium leading-relaxed"
         >
           Engineering autonomous workflow orchestration, zero-knowledge document intelligence, and high-throughput AI ecosystems for production at scale.
         </motion.p>
@@ -104,11 +113,11 @@ export function Hero() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.5 }}
-          className="mt-7 flex flex-wrap items-center justify-center gap-4"
+          className="mt-8 flex flex-wrap items-center justify-center gap-4"
         >
           <Link
             href="/products"
-            className="group flex items-center gap-2 rounded-full bg-neutral-950 px-6 py-3.5 text-sm font-semibold text-white shadow-lg transition-all duration-200 hover:bg-neutral-800 active:scale-95"
+            className="group flex items-center gap-2 rounded-full bg-neutral-950 px-7 py-3.5 text-sm font-bold text-white shadow-lg transition-all duration-200 hover:bg-neutral-800 active:scale-95"
           >
             <span>Explore Platforms</span>
             <ArrowRight
@@ -119,11 +128,39 @@ export function Hero() {
           </Link>
           <Link
             href="#approach"
-            className="flex items-center gap-2 rounded-full border border-neutral-300 bg-white px-6 py-3.5 text-sm font-medium text-neutral-800 shadow-xs transition-all duration-200 hover:bg-neutral-50 hover:border-neutral-400 active:scale-95"
+            className="flex items-center gap-2 rounded-full border border-neutral-300 bg-white px-7 py-3.5 text-sm font-semibold text-neutral-800 shadow-xs transition-all duration-200 hover:bg-neutral-50 hover:border-neutral-400 active:scale-95"
           >
             <TerminalWindow size={16} />
             <span>Architecture & Workflow</span>
           </Link>
+        </motion.div>
+
+        {/* Interactive Quick-Install / Developer Snippet */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className="mt-8 inline-flex items-center gap-3 rounded-full border border-neutral-200 bg-neutral-50/90 px-4 py-1.5 shadow-2xs text-xs font-mono"
+        >
+          <span className="text-neutral-400">$</span>
+          <span className="font-semibold text-neutral-800">pip install datafit</span>
+          <button
+            onClick={copyCommand}
+            className="flex items-center gap-1 text-neutral-500 hover:text-neutral-950 transition-colors ml-1 border-l border-neutral-200 pl-2.5"
+            title="Copy command"
+          >
+            {copied ? (
+              <>
+                <Check size={13} weight="bold" className="text-emerald-600" />
+                <span className="text-[10px] font-bold text-emerald-700">Copied</span>
+              </>
+            ) : (
+              <>
+                <Copy size={13} />
+                <span className="text-[10px]">Copy</span>
+              </>
+            )}
+          </button>
         </motion.div>
       </div>
     </section>

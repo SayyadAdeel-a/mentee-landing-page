@@ -10,9 +10,9 @@ interface HeroCurvedMarqueeProps {
 }
 
 export function HeroCurvedMarquee({
-  text = "MENTEE AI · AUTONOMOUS WORKFLOWS · ZERO-KNOWLEDGE ENCLAVES · PYTORCH & FASTAPI · HIGH-THROUGHPUT EDGE · DISTRIBUTED AGENT MESH · SOC-2 READY ·",
+  text = "MENTEE AI // AUTONOMOUS WORKFLOW ORCHESTRATION // ZERO-KNOWLEDGE CRYPTOGRAPHIC VAULTS // PYTORCH & FASTAPI CORE // HIGH-THROUGHPUT GLOBAL EDGE // DISTRIBUTED AGENT MESH // SOC-2 COMPLIANT //",
   color = "#ffffff",
-  baseVelocity = 18,
+  baseVelocity = 14,
 }: HeroCurvedMarqueeProps) {
   const prefersReduced = useReducedMotion();
   const measureRef = useRef<SVGTextElement>(null);
@@ -22,15 +22,15 @@ export function HeroCurvedMarquee({
   const [textWidth, setTextWidth] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
 
-  // U-curve path: High at ends (80), dipping in the center (270)
-  const pathId = "hero-curve-track";
-  const pathD = "M-200,80 Q720,270 1640,80";
+  // Grand Full-Bleed U-Curve Path: starts high on left edge (x: -100, y: 160), swoops deep across bottom (x: 960, y: 920), rises high on right edge (x: 2020, y: 160)
+  const pathId = "hero-full-curve-track";
+  const pathD = "M -100,160 Q 960,940 2020,160";
 
   const isDragging = useRef(false);
   const dragVelocity = useRef(0);
   const lastPointerPosition = useRef({ x: 0, y: 0 });
 
-  const gapPx = 80;
+  const gapPx = 90;
   const processedText = useMemo(() => text.trim(), [text]);
   const spacing = textWidth + gapPx;
 
@@ -46,7 +46,7 @@ export function HeroCurvedMarquee({
     }
   }, []);
 
-  const calculatedRepeats = spacing > 0 ? Math.ceil((pathLength || 2200) / spacing) + 6 : 0;
+  const calculatedRepeats = spacing > 0 ? Math.ceil((pathLength || 3200) / spacing) + 6 : 0;
   const ready = (pathLength > 0 || textWidth > 0) && spacing > 0;
 
   useEffect(() => {
@@ -71,7 +71,7 @@ export function HeroCurvedMarquee({
           moveBy = dragVelocity.current;
           dragVelocity.current *= 0.92;
         } else {
-          moveBy = -(baseVelocity * 3.5) * (delta / 1000) + dragVelocity.current;
+          moveBy = -(baseVelocity * 4) * (delta / 1000) + dragVelocity.current;
           if (Math.abs(dragVelocity.current) > 0.01) {
             dragVelocity.current *= 0.95;
           } else {
@@ -115,7 +115,7 @@ export function HeroCurvedMarquee({
     if (!isDragging.current) return;
     const currentPosition = { x: e.clientX, y: e.clientY };
     const deltaX = currentPosition.x - lastPointerPosition.current.x;
-    dragVelocity.current = deltaX * 0.45;
+    dragVelocity.current = deltaX * 0.55;
     lastPointerPosition.current = currentPosition;
   };
 
@@ -126,26 +126,25 @@ export function HeroCurvedMarquee({
 
   return (
     <div
-      className="relative w-full overflow-hidden select-none cursor-grab active:cursor-grabbing pointer-events-auto"
+      className="pointer-events-none absolute inset-0 z-0 h-full w-full overflow-hidden select-none"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onFocusCapture={() => setIsHovered(true)}
       onBlurCapture={() => setIsHovered(false)}
       style={{
         visibility: ready ? "visible" : "hidden",
-        height: "220px",
-        marginTop: "-40px",
       }}
     >
       <svg
-        viewBox="0 0 1440 300"
-        className="w-full h-full block overflow-visible"
+        viewBox="0 0 1920 1000"
+        preserveAspectRatio="none"
+        className="pointer-events-auto h-full w-full cursor-grab active:cursor-grabbing overflow-visible"
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
         onPointerCancel={handlePointerUp}
       >
-        {/* Hidden element to measure text length */}
+        {/* Hidden measurement text */}
         <text
           ref={measureRef}
           xmlSpace="preserve"
@@ -156,7 +155,7 @@ export function HeroCurvedMarquee({
             fontSize: "14px",
             fontFamily: "var(--font-mono), monospace",
             fontWeight: 800,
-            letterSpacing: "2px",
+            letterSpacing: "2.5px",
           }}
         >
           {processedText}
@@ -164,52 +163,53 @@ export function HeroCurvedMarquee({
 
         <defs>
           <path ref={pathRef} id={pathId} d={pathD} fill="none" />
-          {/* Subtle gradient glow mask */}
-          <linearGradient id="heroMarqueeFade" x1="0%" y1="0%" x2="100%" y2="0%">
+          
+          {/* Edge gradient mask for natural fade in and out at viewport boundaries */}
+          <linearGradient id="grandHeroFade" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor="white" stopOpacity="0" />
-            <stop offset="15%" stopColor="white" stopOpacity="1" />
-            <stop offset="85%" stopColor="white" stopOpacity="1" />
+            <stop offset="10%" stopColor="white" stopOpacity="1" />
+            <stop offset="90%" stopColor="white" stopOpacity="1" />
             <stop offset="100%" stopColor="white" stopOpacity="0" />
           </linearGradient>
-          <mask id="heroMarqueeMask">
-            <rect width="100%" height="100%" fill="url(#heroMarqueeFade)" />
+          <mask id="grandHeroMask">
+            <rect width="100%" height="100%" fill="url(#grandHeroFade)" />
           </mask>
         </defs>
 
-        {/* Charcoal #212121 Curved Ribbon Banner Underlay */}
+        {/* Charcoal #212121 Large Ribbon Track */}
         <path
           d={pathD}
           fill="none"
           stroke="#212121"
-          strokeWidth="46"
+          strokeWidth="60"
           strokeLinecap="round"
-          className="drop-shadow-lg"
-          mask="url(#heroMarqueeMask)"
+          className="drop-shadow-2xl"
+          mask="url(#grandHeroMask)"
         />
 
-        {/* Dashed Guideline Borders for Clean Architectural Aesthetics */}
+        {/* Subtle Architectural Dashed Border */}
         <path
           d={pathD}
           fill="none"
           stroke="#383838"
-          strokeWidth="48"
-          strokeDasharray="4 4"
+          strokeWidth="62"
+          strokeDasharray="5 5"
           strokeLinecap="round"
-          className="opacity-70"
-          mask="url(#heroMarqueeMask)"
+          className="opacity-80"
+          mask="url(#grandHeroMask)"
         />
 
-        {/* Flowing Text along the Curved Path in crisp white / light gray */}
+        {/* Flowing Text Stream */}
         {ready && (
           <text
             fill={color}
-            fontSize="12.5px"
+            fontSize="13.5px"
             fontFamily="var(--font-mono), monospace"
             fontWeight={800}
-            letterSpacing="2px"
+            letterSpacing="2.5px"
             xmlSpace="preserve"
-            dy="4.5"
-            mask="url(#heroMarqueeMask)"
+            dy="5"
+            mask="url(#grandHeroMask)"
           >
             <textPath href={`#${pathId}`} xmlSpace="preserve">
               {Array.from({ length: calculatedRepeats }).map((_, i) => (

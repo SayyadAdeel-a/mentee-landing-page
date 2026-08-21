@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, TerminalWindow, ArrowUpRight, Sparkle } from "@phosphor-icons/react";
+import { ArrowRight, TerminalWindow, ArrowUpRight } from "@phosphor-icons/react";
 import { ShinyText } from "@/components/ui/ShinyText";
 import { HeroCurvedMarquee } from "@/components/HeroCurvedMarquee";
 
@@ -14,7 +14,7 @@ export function Hero() {
   const reduce = useReducedMotion();
 
   return (
-    <section className="relative flex min-h-[92vh] flex-col justify-between overflow-hidden bg-white px-6 pt-32 pb-6 sm:pt-36 text-neutral-950">
+    <section className="relative flex min-h-[95vh] flex-col justify-center overflow-hidden bg-white px-6 pt-32 pb-24 sm:pt-36 text-neutral-950">
       {/* Background Ambient Grid & Radial Depth */}
       <div className="ambient-grid-light pointer-events-none absolute inset-0 opacity-40" />
       <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[500px] w-[800px] rounded-full bg-neutral-950/[0.02] blur-3xl" />
@@ -48,6 +48,9 @@ export function Hero() {
         </div>
       )}
 
+      {/* Grand Full-Bleed Charcoal #212121 Curved Ribbon Spanning Screen Edge-to-Edge */}
+      <HeroCurvedMarquee />
+
       {/* Main Content Container */}
       <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-1 flex-col items-center justify-center text-center my-auto">
         {/* Top Status & Pill Badge */}
@@ -55,7 +58,7 @@ export function Hero() {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="mb-5 inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-neutral-50/80 px-4 py-1.5 shadow-2xs backdrop-blur-md"
+          className="mb-5 inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-neutral-50/90 px-4 py-1.5 shadow-2xs backdrop-blur-md"
         >
           <span className="flex h-2 w-2 rounded-full bg-emerald-500">
             <span className="h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75" />
@@ -155,16 +158,6 @@ export function Hero() {
           </a>
         </motion.div>
       </div>
-
-      {/* Charcoal #212121 Curved Marquee Ribbon looping across Hero */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.7 }}
-        className="relative z-10 w-full overflow-hidden"
-      >
-        <HeroCurvedMarquee />
-      </motion.div>
     </section>
   );
 }

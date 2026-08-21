@@ -22,9 +22,9 @@ export function HeroCurvedMarquee({
   const [textWidth, setTextWidth] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
 
-  // Grand Full-Bleed U-Curve Path: starts high on left edge (x: -100, y: 160), swoops deep across bottom (x: 960, y: 920), rises high on right edge (x: 2020, y: 160)
-  const pathId = "hero-full-curve-track";
-  const pathD = "M -100,160 Q 960,940 2020,160";
+  // U-Curve Path designed specifically to sweep underneath the CTAs and founder pill
+  const pathId = "hero-bottom-curve-track";
+  const pathD = "M -100,40 Q 960,250 2020,40";
 
   const isDragging = useRef(false);
   const dragVelocity = useRef(0);
@@ -46,7 +46,7 @@ export function HeroCurvedMarquee({
     }
   }, []);
 
-  const calculatedRepeats = spacing > 0 ? Math.ceil((pathLength || 3200) / spacing) + 6 : 0;
+  const calculatedRepeats = spacing > 0 ? Math.ceil((pathLength || 2800) / spacing) + 6 : 0;
   const ready = (pathLength > 0 || textWidth > 0) && spacing > 0;
 
   useEffect(() => {
@@ -126,19 +126,20 @@ export function HeroCurvedMarquee({
 
   return (
     <div
-      className="pointer-events-none absolute inset-0 z-0 h-full w-full overflow-hidden select-none"
+      className="relative w-full select-none overflow-hidden"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onFocusCapture={() => setIsHovered(true)}
       onBlurCapture={() => setIsHovered(false)}
       style={{
         visibility: ready ? "visible" : "hidden",
+        height: "260px",
+        marginTop: "16px",
       }}
     >
       <svg
-        viewBox="0 0 1920 1000"
-        preserveAspectRatio="none"
-        className="pointer-events-auto h-full w-full cursor-grab active:cursor-grabbing overflow-visible"
+        viewBox="0 0 1920 300"
+        className="w-full h-full block cursor-grab active:cursor-grabbing overflow-visible pointer-events-auto"
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
@@ -167,8 +168,8 @@ export function HeroCurvedMarquee({
           {/* Edge gradient mask for natural fade in and out at viewport boundaries */}
           <linearGradient id="grandHeroFade" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor="white" stopOpacity="0" />
-            <stop offset="10%" stopColor="white" stopOpacity="1" />
-            <stop offset="90%" stopColor="white" stopOpacity="1" />
+            <stop offset="8%" stopColor="white" stopOpacity="1" />
+            <stop offset="92%" stopColor="white" stopOpacity="1" />
             <stop offset="100%" stopColor="white" stopOpacity="0" />
           </linearGradient>
           <mask id="grandHeroMask">
@@ -181,9 +182,9 @@ export function HeroCurvedMarquee({
           d={pathD}
           fill="none"
           stroke="#212121"
-          strokeWidth="60"
+          strokeWidth="56"
           strokeLinecap="round"
-          className="drop-shadow-2xl"
+          className="drop-shadow-xl"
           mask="url(#grandHeroMask)"
         />
 
@@ -191,11 +192,11 @@ export function HeroCurvedMarquee({
         <path
           d={pathD}
           fill="none"
-          stroke="#383838"
-          strokeWidth="62"
+          stroke="#404040"
+          strokeWidth="58"
           strokeDasharray="5 5"
           strokeLinecap="round"
-          className="opacity-80"
+          className="opacity-75"
           mask="url(#grandHeroMask)"
         />
 
@@ -203,12 +204,12 @@ export function HeroCurvedMarquee({
         {ready && (
           <text
             fill={color}
-            fontSize="13.5px"
+            fontSize="13px"
             fontFamily="var(--font-mono), monospace"
             fontWeight={800}
             letterSpacing="2.5px"
             xmlSpace="preserve"
-            dy="5"
+            dy="4.5"
             mask="url(#grandHeroMask)"
           >
             <textPath href={`#${pathId}`} xmlSpace="preserve">

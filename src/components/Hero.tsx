@@ -14,7 +14,7 @@ export function Hero() {
   const reduce = useReducedMotion();
 
   return (
-    <section className="relative flex min-h-[95vh] flex-col justify-center overflow-hidden bg-white px-6 pt-32 pb-24 sm:pt-36 text-neutral-950">
+    <section className="relative flex flex-col justify-between overflow-hidden bg-white px-6 pt-32 sm:pt-36 text-neutral-950">
       {/* Background Ambient Grid & Radial Depth */}
       <div className="ambient-grid-light pointer-events-none absolute inset-0 opacity-40" />
       <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[500px] w-[800px] rounded-full bg-neutral-950/[0.02] blur-3xl" />
@@ -47,9 +47,6 @@ export function Hero() {
           })}
         </div>
       )}
-
-      {/* Grand Full-Bleed Charcoal #212121 Curved Ribbon Spanning Screen Edge-to-Edge */}
-      <HeroCurvedMarquee />
 
       {/* Main Content Container */}
       <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-1 flex-col items-center justify-center text-center my-auto">
@@ -158,6 +155,16 @@ export function Hero() {
           </a>
         </motion.div>
       </div>
+
+      {/* Grand Charcoal #212121 Curved Ribbon Flowing Along Base of Hero */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.7 }}
+        className="relative z-10 w-full overflow-hidden"
+      >
+        <HeroCurvedMarquee />
+      </motion.div>
     </section>
   );
 }

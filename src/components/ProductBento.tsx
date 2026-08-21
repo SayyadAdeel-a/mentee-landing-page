@@ -9,334 +9,304 @@ import {
   CheckCircle, 
   ArrowRight, 
   Sparkle,
-  Cpu,
-  LockKey,
-  Terminal,
-  Pulse
+  Pulse,
+  ArrowUpRight
 } from "@phosphor-icons/react";
 import Link from "next/link";
 import { Reveal } from "@/components/Reveal";
 import { LiveTerminal } from "@/components/ui/LiveTerminal";
 import { SecurityVisualizer } from "@/components/ui/SecurityVisualizer";
 
-interface ProductSpec {
-  id: string;
-  index: string;
-  category: string;
-  title: string;
-  badge: string;
-  tagline: string;
-  description: string;
-  specs: { label: string; value: string }[];
-  runtime: string;
-  linkHref: string;
-  linkText: string;
-  icon: React.ReactNode;
-}
+const products = [
+  {
+    index: "01",
+    code: "SYS-REC",
+    title: "RecruAI",
+    category: "Talent Intelligence",
+    tagline: "Autonomous Semantic CV Parsing & Match Engine",
+    description:
+      "Vector-embedded candidate intelligence platform that extracts unstructured competencies, builds contextual capability graphs, and calculates sub-second semantic match scores for high-velocity hiring teams.",
+    specs: [
+      { label: "Core Runtime", value: "FastAPI + Python 3.11" },
+      { label: "Embedding Mesh", value: "pgvector (1536-dim)" },
+      { label: "Scoring Latency", value: "< 120ms / Candidate" },
+      { label: "Verification", value: "Multi-Agent Consensus" },
+    ],
+    badge: "FastAPI · PyTorch",
+    linkHref: "/products",
+    linkText: "Explore RecruAI Architecture",
+    previewType: "recruai",
+  },
+  {
+    index: "02",
+    code: "SYS-DOC",
+    title: "DocsBox",
+    category: "Zero-Knowledge Storage",
+    tagline: "Client-Side Encrypted Document Vault",
+    description:
+      "Decentralized enclave vault where sensitive files undergo client-side AES-256-GCM encryption before transit. Zero server-side plaintext exposure, verifiable cryptographic proofs, and automated compliance auditing.",
+    specs: [
+      { label: "Cipher Suite", value: "AES-256-GCM + PBKDF2" },
+      { label: "Key Derivation", value: "Client-Side Zero Leakage" },
+      { label: "Storage Node", value: "Encrypted Shards" },
+      { label: "Compliance", value: "HIPAA & SOC-2 Ready" },
+    ],
+    badge: "AES-256 · Zero-Leak",
+    linkHref: "/products",
+    linkText: "Explore DocsBox Architecture",
+    previewType: "docsbox",
+  },
+  {
+    index: "03",
+    code: "SYS-DAT",
+    title: "DataFit",
+    category: "Open Source Tooling",
+    tagline: "Automated Tabular Cleaning & Tensor Formatting",
+    description:
+      "Published open-source Python library automating tabular data preprocessing. Handles missingness heuristics, tensor formatting, categorical encoding, and feature extraction with single-command CLI execution.",
+    specs: [
+      { label: "Distribution", value: "PyPI Package (v0.1.4)" },
+      { label: "Dependencies", value: "NumPy · Pandas · Sklearn" },
+      { label: "Installation", value: "pip install datafit" },
+      { label: "License", value: "Open-Source MIT" },
+    ],
+    badge: "PyPI · Open Source",
+    linkHref: "https://github.com/SyabAhmad/datafit",
+    linkText: "View GitHub Repository",
+    isExternal: true,
+    previewType: "datafit",
+  },
+  {
+    index: "04",
+    code: "SYS-VIS",
+    title: "Vision Systems",
+    category: "Edge Computer Vision",
+    tagline: "Real-Time Perimeter Telemetry & Spatial Inference",
+    description:
+      "Distributed edge computer vision pipeline running real-time object tracking, spatial zoning, and low-latency perimeter security inference at 60 FPS on TensorRT and CUDA runtimes.",
+    specs: [
+      { label: "Model Backbone", value: "YOLOv8 + TensorRT" },
+      { label: "Frame Rate", value: "60 FPS Continuous" },
+      { label: "Inference Latency", value: "12.4ms Edge Runtime" },
+      { label: "Telemetry", value: "Real-Time MQTT Stream" },
+    ],
+    badge: "YOLOv8 · TensorRT",
+    linkHref: "/products",
+    linkText: "Explore Vision Architecture",
+    previewType: "vision",
+  },
+];
 
 export function ProductBento() {
   const [matchScore] = useState(96);
+  const [activeRow, setActiveRow] = useState<string>("01");
 
   return (
-    <section id="products" className="relative mx-auto max-w-7xl px-4 sm:px-6 py-20 sm:py-28 bg-white text-neutral-950">
+    <section id="products" className="relative mx-auto max-w-7xl px-4 sm:px-6 py-20 sm:py-32 bg-white text-neutral-950">
       {/* Editorial Section Header */}
-      <Reveal className="mb-14 sm:mb-20">
-        <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-neutral-200 pb-8 gap-6">
-          <div>
-            <div className="flex items-center gap-3 mb-4">
-              <span className="font-mono text-xs font-bold uppercase tracking-widest text-neutral-500">
-                [ INDEX 01.0 // SYSTEMS CATALOG ]
-              </span>
-              <span className="h-px w-8 bg-neutral-300" />
-              <div className="inline-flex items-center gap-1.5 rounded-full border border-neutral-200 bg-neutral-50 px-2.5 py-0.5 text-[10px] font-mono font-bold text-neutral-700">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                <span>4 ACTIVE RUNTIMES</span>
+      <Reveal className="mb-16 sm:mb-24">
+        <div className="border-b border-neutral-900 pb-8 sm:pb-12">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div>
+              <div className="flex items-center gap-3 mb-4 font-mono text-xs font-bold text-neutral-500 uppercase tracking-widest">
+                <span>[ CATALOG ISSUE 01 ]</span>
+                <span className="h-px w-8 bg-neutral-300" />
+                <span className="text-neutral-950 font-semibold">PRODUCTION RUNTIMES</span>
               </div>
+              <h2 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tighter text-neutral-950 leading-[0.98]">
+                Engineered for scale.<br />
+                <span className="text-neutral-400">Deployed in production.</span>
+              </h2>
             </div>
 
-            <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-neutral-950 leading-[1.08]">
-              Engineered for scale.<br />
-              <span className="text-neutral-400">Deployed in production.</span>
-            </h2>
-          </div>
-
-          <div className="max-w-md">
-            <p className="text-sm sm:text-base text-neutral-600 font-normal leading-relaxed">
-              From autonomous semantic CV intelligence to zero-knowledge document vaults and open-source data engines, review our flagship production deployments.
-            </p>
-            <div className="mt-4 flex items-center gap-4 text-xs font-mono text-neutral-500">
-              <span>LATENCY: &lt;15ms</span>
-              <span>•</span>
-              <span>ENCLAVES: AES-256</span>
-              <span>•</span>
-              <span>SOC-2 COMPLIANT</span>
+            <div className="max-w-md">
+              <p className="text-sm sm:text-base text-neutral-600 font-normal leading-relaxed">
+                A definitive catalog of autonomous AI architectures, zero-knowledge security vaults, and open-source data tooling engineered for high-throughput enterprise scale.
+              </p>
+              <div className="mt-4 flex flex-wrap items-center gap-3 font-mono text-xs text-neutral-500">
+                <span className="rounded bg-neutral-100 px-2 py-0.5 text-neutral-800 font-bold">4 PRODUCTION ENGINES</span>
+                <span>•</span>
+                <span>SOC-2 TYPE II</span>
+                <span>•</span>
+                <span>SUB-15MS LATENCY</span>
+              </div>
             </div>
           </div>
         </div>
       </Reveal>
 
-      {/* Editorial 2x2 Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-        {/* 1. RecruAI */}
-        <Reveal delay={0.1}>
-          <div className="group relative flex flex-col justify-between rounded-3xl border border-neutral-200 bg-white p-6 sm:p-8 shadow-xs transition-all duration-300 hover:border-neutral-400 hover:shadow-md h-full">
-            {/* Editorial Card Header */}
-            <div>
-              <div className="flex items-center justify-between border-b border-neutral-100 pb-4 mb-5">
-                <div className="flex items-center gap-2 font-mono text-xs text-neutral-500">
-                  <span className="font-bold text-neutral-950">[ 01 ]</span>
-                  <span>//</span>
-                  <span className="uppercase tracking-wider">TALENT INTELLIGENCE</span>
-                </div>
-                <span className="rounded-full border border-neutral-200 bg-neutral-50 px-2.5 py-0.5 text-[10px] font-mono font-bold text-neutral-700">
-                  FastAPI · PyTorch
-                </span>
-              </div>
-
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <h3 className="text-2xl font-black tracking-tight text-neutral-950">RecruAI</h3>
-                  <p className="mt-1 text-xs font-mono font-semibold text-neutral-500 uppercase tracking-wide">
-                    Autonomous Semantic CV Parsing & Candidate Scoring
-                  </p>
-                </div>
-                <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-neutral-200 bg-neutral-50 text-neutral-900 shadow-2xs group-hover:scale-105 transition-transform">
-                  <UsersThree size={24} weight="duotone" />
-                </div>
-              </div>
-
-              <p className="mt-3 text-xs sm:text-sm text-neutral-600 leading-relaxed">
-                Autonomous vector-embedded profile evaluation engine processing unstructured resumes into verified capability graphs with sub-second ranking.
-              </p>
-            </div>
-
-            {/* Interactive Live Preview Component */}
-            <div className="my-6 rounded-2xl border border-neutral-200 bg-neutral-50/80 p-4 sm:p-5 shadow-2xs">
-              <div className="flex items-center justify-between border-b border-neutral-200/80 pb-3">
-                <div className="flex items-center gap-2.5">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#212121] text-[11px] font-mono font-bold text-white shadow-xs">
-                    SA
-                  </div>
+      {/* Full Editorial Horizontal Stacked Rows */}
+      <div className="divide-y divide-neutral-200 border-b border-neutral-200">
+        {products.map((p, idx) => (
+          <Reveal key={p.index} delay={idx * 0.1}>
+            <div
+              onMouseEnter={() => setActiveRow(p.index)}
+              className={`group py-12 sm:py-16 transition-colors duration-300 ${
+                activeRow === p.index ? "bg-neutral-50/50" : "bg-white"
+              } -mx-4 sm:-mx-6 px-4 sm:px-6`}
+            >
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+                {/* Column 1: Editorial Index & Tag (lg: 3 cols) */}
+                <div className="lg:col-span-3 flex flex-col justify-between h-full">
                   <div>
-                    <p className="text-xs font-bold text-neutral-900">Lead Full-Stack AI Engineer</p>
-                    <p className="text-[10px] text-neutral-500 font-mono">Semantic Fit Index</p>
+                    <div className="flex items-center gap-3 mb-3">
+                      <span className="text-3xl sm:text-4xl font-black font-mono tracking-tighter text-neutral-950">
+                        {p.index}
+                      </span>
+                      <span className="rounded border border-neutral-200 bg-neutral-100 px-2 py-0.5 text-[10px] font-mono font-bold text-neutral-700 uppercase">
+                        {p.code}
+                      </span>
+                    </div>
+
+                    <p className="font-mono text-xs font-bold uppercase tracking-wider text-neutral-500">
+                      {p.category}
+                    </p>
+                  </div>
+
+                  <div className="hidden lg:block mt-12 pt-4 border-t border-neutral-200 font-mono text-[11px] text-neutral-400 space-y-1">
+                    <p>STATUS: DEPLOYED // ACTIVE</p>
+                    <p>REGISTRY: PRODUCTION MESH</p>
                   </div>
                 </div>
-                <div className="text-right">
-                  <span className="text-base sm:text-lg font-black text-emerald-600 font-mono">{matchScore}%</span>
-                  <p className="text-[8px] sm:text-[9px] text-neutral-500 uppercase tracking-wider font-bold">MATCH SCORE</p>
+
+                {/* Column 2: Editorial Details & Specs (lg: 5 cols) */}
+                <div className="lg:col-span-5 flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-baseline gap-3 mb-2">
+                      <h3 className="text-2xl sm:text-3xl font-black tracking-tight text-neutral-950">
+                        {p.title}
+                      </h3>
+                      <span className="font-mono text-xs text-neutral-400 font-medium">
+                        — {p.badge}
+                      </span>
+                    </div>
+
+                    <p className="text-sm font-semibold text-neutral-800 mb-3">
+                      {p.tagline}
+                    </p>
+
+                    <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed font-normal mb-6">
+                      {p.description}
+                    </p>
+                  </div>
+
+                  {/* Technical Specifications Table */}
+                  <div className="rounded-xl border border-neutral-200 bg-white p-4 shadow-2xs">
+                    <div className="grid grid-cols-2 gap-y-3 gap-x-4 text-xs font-mono">
+                      {p.specs.map((s) => (
+                        <div key={s.label}>
+                          <span className="text-neutral-400 block text-[10px] uppercase">{s.label}</span>
+                          <span className="text-neutral-900 font-bold text-[11px] sm:text-xs">{s.value}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Editorial Link Action */}
+                  <div className="mt-6">
+                    {p.isExternal ? (
+                      <a
+                        href={p.linkHref}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group/btn inline-flex items-center gap-2 font-mono text-xs font-bold text-neutral-950 hover:text-neutral-700 transition-colors"
+                      >
+                        <span className="underline underline-offset-4">{p.linkText}</span>
+                        <ArrowUpRight size={13} weight="bold" className="transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
+                      </a>
+                    ) : (
+                      <Link
+                        href={p.linkHref}
+                        className="group/btn inline-flex items-center gap-2 font-mono text-xs font-bold text-neutral-950 hover:text-neutral-700 transition-colors"
+                      >
+                        <span className="underline underline-offset-4">{p.linkText}</span>
+                        <ArrowRight size={13} weight="bold" className="transition-transform group-hover/btn:translate-x-1" />
+                      </Link>
+                    )}
+                  </div>
                 </div>
-              </div>
 
-              <div className="mt-3 grid grid-cols-3 gap-2 text-[10px] sm:text-[11px]">
-                <div className="rounded-xl bg-white p-2 border border-neutral-200 shadow-2xs">
-                  <span className="text-neutral-500 block text-[9px] font-mono">FastAPI</span>
-                  <span className="text-emerald-700 font-bold flex items-center gap-1 mt-0.5">
-                    <CheckCircle size={11} weight="fill" /> 98%
-                  </span>
-                </div>
-                <div className="rounded-xl bg-white p-2 border border-neutral-200 shadow-2xs">
-                  <span className="text-neutral-500 block text-[9px] font-mono">LLM & RAG</span>
-                  <span className="text-emerald-700 font-bold flex items-center gap-1 mt-0.5">
-                    <CheckCircle size={11} weight="fill" /> 96%
-                  </span>
-                </div>
-                <div className="rounded-xl bg-white p-2 border border-neutral-200 shadow-2xs">
-                  <span className="text-neutral-500 block text-[9px] font-mono">System Mesh</span>
-                  <span className="text-emerald-700 font-bold flex items-center gap-1 mt-0.5">
-                    <CheckCircle size={11} weight="fill" /> 94%
-                  </span>
-                </div>
-              </div>
-            </div>
+                {/* Column 3: Live Interactive Preview Widget (lg: 4 cols) */}
+                <div className="lg:col-span-4">
+                  {p.previewType === "recruai" && (
+                    <div className="rounded-2xl border border-neutral-200 bg-white p-4 sm:p-5 shadow-xs">
+                      <div className="flex items-center justify-between border-b border-neutral-100 pb-3 mb-3">
+                        <div className="flex items-center gap-2.5">
+                          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#212121] text-[11px] font-mono font-bold text-white shadow-2xs">
+                            SA
+                          </div>
+                          <div>
+                            <p className="text-xs font-bold text-neutral-900">Lead AI Engineer</p>
+                            <p className="text-[10px] text-neutral-500 font-mono">Semantic Fit Index</p>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <span className="text-base font-black text-emerald-600 font-mono">{matchScore}%</span>
+                          <p className="text-[8px] text-neutral-400 font-bold uppercase">MATCH</p>
+                        </div>
+                      </div>
 
-            {/* Editorial Footer & Metadata */}
-            <div className="flex items-center justify-between border-t border-neutral-100 pt-4">
-              <span className="font-mono text-[11px] text-neutral-500">RUNTIME // PostgreSQL + pgvector</span>
-              <Link
-                href="/products"
-                className="group/link inline-flex items-center gap-1.5 text-xs font-bold text-neutral-950 hover:text-neutral-700 transition-colors"
-              >
-                <span>Explore RecruAI</span>
-                <ArrowRight size={13} className="transition-transform group-hover/link:translate-x-1" />
-              </Link>
-            </div>
-          </div>
-        </Reveal>
+                      <div className="space-y-2 text-xs">
+                        <div className="flex items-center justify-between rounded-lg bg-neutral-50 p-2 border border-neutral-200/80 font-mono text-[10px]">
+                          <span className="text-neutral-600">FastAPI / Python</span>
+                          <span className="text-emerald-700 font-bold flex items-center gap-1">
+                            <CheckCircle size={11} weight="fill" /> 98%
+                          </span>
+                        </div>
+                        <div className="flex items-center justify-between rounded-lg bg-neutral-50 p-2 border border-neutral-200/80 font-mono text-[10px]">
+                          <span className="text-neutral-600">LLM Orchestration</span>
+                          <span className="text-emerald-700 font-bold flex items-center gap-1">
+                            <CheckCircle size={11} weight="fill" /> 96%
+                          </span>
+                        </div>
+                        <div className="flex items-center justify-between rounded-lg bg-neutral-50 p-2 border border-neutral-200/80 font-mono text-[10px]">
+                          <span className="text-neutral-600">System Architecture</span>
+                          <span className="text-emerald-700 font-bold flex items-center gap-1">
+                            <CheckCircle size={11} weight="fill" /> 94%
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
 
-        {/* 2. DocsBox */}
-        <Reveal delay={0.2}>
-          <div className="group relative flex flex-col justify-between rounded-3xl border border-neutral-200 bg-white p-6 sm:p-8 shadow-xs transition-all duration-300 hover:border-neutral-400 hover:shadow-md h-full">
-            {/* Editorial Card Header */}
-            <div>
-              <div className="flex items-center justify-between border-b border-neutral-100 pb-4 mb-5">
-                <div className="flex items-center gap-2 font-mono text-xs text-neutral-500">
-                  <span className="font-bold text-neutral-950">[ 02 ]</span>
-                  <span>//</span>
-                  <span className="uppercase tracking-wider">ZERO-KNOWLEDGE ENCLAVE</span>
-                </div>
-                <span className="rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-0.5 text-[10px] font-mono font-bold text-emerald-800">
-                  AES-256-GCM
-                </span>
-              </div>
+                  {p.previewType === "docsbox" && (
+                    <div className="rounded-2xl border border-neutral-200 bg-white p-4 sm:p-5 shadow-xs">
+                      <SecurityVisualizer />
+                    </div>
+                  )}
 
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <h3 className="text-2xl font-black tracking-tight text-neutral-950">DocsBox</h3>
-                  <p className="mt-1 text-xs font-mono font-semibold text-neutral-500 uppercase tracking-wide">
-                    Client-Side Encrypted Document Storage & Vault
-                  </p>
-                </div>
-                <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-neutral-200 bg-neutral-50 text-neutral-900 shadow-2xs group-hover:scale-105 transition-transform">
-                  <ShieldCheck size={24} weight="duotone" />
-                </div>
-              </div>
+                  {p.previewType === "datafit" && (
+                    <div className="rounded-2xl border border-neutral-200 bg-white p-2 shadow-xs">
+                      <LiveTerminal />
+                    </div>
+                  )}
 
-              <p className="mt-3 text-xs sm:text-sm text-neutral-600 leading-relaxed">
-                Zero-knowledge decentralized vault where document payloads are encrypted client-side prior to transit, guaranteeing zero server-side exposure.
-              </p>
-            </div>
-
-            {/* Interactive Live Preview Component */}
-            <div className="my-6 rounded-2xl border border-neutral-200 bg-neutral-50/80 p-4 sm:p-5 shadow-2xs">
-              <SecurityVisualizer />
-            </div>
-
-            {/* Editorial Footer & Metadata */}
-            <div className="flex items-center justify-between border-t border-neutral-100 pt-4">
-              <span className="font-mono text-[11px] text-neutral-500">SECURITY // Zero-Leakage Architecture</span>
-              <Link
-                href="/products"
-                className="group/link inline-flex items-center gap-1.5 text-xs font-bold text-neutral-950 hover:text-neutral-700 transition-colors"
-              >
-                <span>Explore DocsBox</span>
-                <ArrowRight size={13} className="transition-transform group-hover/link:translate-x-1" />
-              </Link>
-            </div>
-          </div>
-        </Reveal>
-
-        {/* 3. DataFit */}
-        <Reveal delay={0.3}>
-          <div className="group relative flex flex-col justify-between rounded-3xl border border-neutral-200 bg-white p-6 sm:p-8 shadow-xs transition-all duration-300 hover:border-neutral-400 hover:shadow-md h-full">
-            {/* Editorial Card Header */}
-            <div>
-              <div className="flex items-center justify-between border-b border-neutral-100 pb-4 mb-5">
-                <div className="flex items-center gap-2 font-mono text-xs text-neutral-500">
-                  <span className="font-bold text-neutral-950">[ 03 ]</span>
-                  <span>//</span>
-                  <span className="uppercase tracking-wider">OPEN SOURCE PIPELINE</span>
-                </div>
-                <span className="rounded-full border border-purple-200 bg-purple-50 px-2.5 py-0.5 text-[10px] font-mono font-bold text-purple-700">
-                  PyPI · v0.1.4
-                </span>
-              </div>
-
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <h3 className="text-2xl font-black tracking-tight text-neutral-950">DataFit</h3>
-                  <p className="mt-1 text-xs font-mono font-semibold text-neutral-500 uppercase tracking-wide">
-                    Automated ML Preprocessing & Feature Engineering
-                  </p>
-                </div>
-                <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-neutral-200 bg-neutral-50 text-neutral-900 shadow-2xs group-hover:scale-105 transition-transform">
-                  <Code size={24} weight="duotone" />
-                </div>
-              </div>
-
-              <p className="mt-3 text-xs sm:text-sm text-neutral-600 leading-relaxed">
-                Published open-source Python library for automated tabular data hygiene, tensor formatting, outlier imputation, and feature selection pipelines.
-              </p>
-            </div>
-
-            {/* Interactive Live Preview Component */}
-            <div className="my-6 rounded-2xl border border-neutral-200 bg-neutral-50/80 p-4 sm:p-5 shadow-2xs">
-              <LiveTerminal />
-            </div>
-
-            {/* Editorial Footer & Metadata */}
-            <div className="flex items-center justify-between border-t border-neutral-100 pt-4">
-              <span className="font-mono text-[11px] text-neutral-500">PACKAGE // pip install datafit</span>
-              <a
-                href="https://github.com/SyabAhmad/datafit"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group/link inline-flex items-center gap-1.5 text-xs font-bold text-neutral-950 hover:text-neutral-700 transition-colors"
-              >
-                <span>GitHub Repository</span>
-                <ArrowRight size={13} className="transition-transform group-hover/link:translate-x-1" />
-              </a>
-            </div>
-          </div>
-        </Reveal>
-
-        {/* 4. Vision Systems */}
-        <Reveal delay={0.4}>
-          <div className="group relative flex flex-col justify-between rounded-3xl border border-neutral-200 bg-white p-6 sm:p-8 shadow-xs transition-all duration-300 hover:border-neutral-400 hover:shadow-md h-full">
-            {/* Editorial Card Header */}
-            <div>
-              <div className="flex items-center justify-between border-b border-neutral-100 pb-4 mb-5">
-                <div className="flex items-center gap-2 font-mono text-xs text-neutral-500">
-                  <span className="font-bold text-neutral-950">[ 04 ]</span>
-                  <span>//</span>
-                  <span className="uppercase tracking-wider">EDGE COMPUTER VISION</span>
-                </div>
-                <span className="rounded-full border border-amber-200 bg-amber-50 px-2.5 py-0.5 text-[10px] font-mono font-bold text-amber-900">
-                  YOLOv8 · TensorRT
-                </span>
-              </div>
-
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <h3 className="text-2xl font-black tracking-tight text-neutral-950">Vision Systems</h3>
-                  <p className="mt-1 text-xs font-mono font-semibold text-neutral-500 uppercase tracking-wide">
-                    Real-Time Inference & Perimeter Detection
-                  </p>
-                </div>
-                <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-neutral-200 bg-neutral-50 text-neutral-900 shadow-2xs group-hover:scale-105 transition-transform">
-                  <Eye size={24} weight="duotone" />
-                </div>
-              </div>
-
-              <p className="mt-3 text-xs sm:text-sm text-neutral-600 leading-relaxed">
-                Low-latency video telemetry pipeline executing real-time object tracking, spatial zoning, and edge perimeter alerting at 60 frames per second.
-              </p>
-            </div>
-
-            {/* Interactive Live Preview Component */}
-            <div className="my-6 overflow-hidden rounded-2xl border border-neutral-800 bg-[#111113] p-4 sm:p-5 text-white font-mono shadow-md">
-              <div className="flex items-center justify-between text-[11px] text-neutral-400 mb-3">
-                <span className="flex items-center gap-2 text-red-400 font-semibold">
-                  <span className="h-2 w-2 animate-ping rounded-full bg-red-400" />
-                  FEED_01 // 60 FPS
-                </span>
-                <span className="text-emerald-400 text-[10px]">INFERENCE: 12.4ms</span>
-              </div>
-              <div className="rounded-xl bg-[#18181b] p-3.5 border border-neutral-800 flex flex-col justify-between h-24">
-                <div className="inline-flex w-fit items-center gap-1.5 rounded-md bg-emerald-500/20 border border-emerald-500/40 px-2.5 py-1 text-[10px] text-emerald-300 font-bold">
-                  <Pulse size={12} weight="bold" />
-                  <span>OBJECT: PERSON (CONF: 0.97)</span>
-                </div>
-                <div className="flex items-center justify-between text-[10px] text-neutral-400">
-                  <span>FRAME #44,819</span>
-                  <span>BBOX: [x:120, y:45, w:310, h:520]</span>
+                  {p.previewType === "vision" && (
+                    <div className="overflow-hidden rounded-2xl border border-neutral-800 bg-[#111113] p-4 text-white font-mono shadow-md">
+                      <div className="flex items-center justify-between text-[11px] text-neutral-400 mb-3">
+                        <span className="flex items-center gap-2 text-red-400 font-semibold">
+                          <span className="h-2 w-2 animate-ping rounded-full bg-red-400" />
+                          FEED_01 // 60 FPS
+                        </span>
+                        <span className="text-emerald-400 text-[10px]">12.4ms LATENCY</span>
+                      </div>
+                      <div className="rounded-xl bg-[#18181b] p-3 border border-neutral-800 flex flex-col justify-between h-24">
+                        <div className="inline-flex w-fit items-center gap-1.5 rounded bg-emerald-500/20 border border-emerald-500/40 px-2 py-0.5 text-[10px] text-emerald-300 font-bold">
+                          <Pulse size={12} weight="bold" />
+                          <span>OBJECT: PERSON (0.97)</span>
+                        </div>
+                        <div className="flex items-center justify-between text-[10px] text-neutral-400">
+                          <span>FRAME #44,819</span>
+                          <span>BBOX: [120, 45, 310, 520]</span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
-
-            {/* Editorial Footer & Metadata */}
-            <div className="flex items-center justify-between border-t border-neutral-100 pt-4">
-              <span className="font-mono text-[11px] text-neutral-500">ACCELERATION // TensorRT + CUDA</span>
-              <Link
-                href="/products"
-                className="group/link inline-flex items-center gap-1.5 text-xs font-bold text-neutral-950 hover:text-neutral-700 transition-colors"
-              >
-                <span>Explore Vision</span>
-                <ArrowRight size={13} className="transition-transform group-hover/link:translate-x-1" />
-              </Link>
-            </div>
-          </div>
-        </Reveal>
+          </Reveal>
+        ))}
       </div>
     </section>
   );

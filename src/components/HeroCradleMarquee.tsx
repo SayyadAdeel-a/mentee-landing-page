@@ -22,9 +22,9 @@ export function HeroCradleMarquee({
   const [textWidth, setTextWidth] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
 
-  const pathId = "hero-top-arc-track";
-  // Smooth gentle arc spanning horizontally across the hero
-  const pathD = "M 15,25 Q 500,85 985,25";
+  const pathId = "hero-full-arc-track";
+  // Grand smile arc: Starts at the outer left of M (20, 25), sweeps gracefully under the CTA buttons (500, 365), and rises to the outer right of E (980, 25)
+  const pathD = "M 20,25 Q 500,365 980,25";
 
   const isDragging = useRef(false);
   const dragVelocity = useRef(0);
@@ -46,7 +46,7 @@ export function HeroCradleMarquee({
     }
   }, []);
 
-  const calculatedRepeats = spacing > 0 ? Math.ceil((pathLength || 1600) / spacing) + 6 : 0;
+  const calculatedRepeats = spacing > 0 ? Math.ceil((pathLength || 2200) / spacing) + 8 : 0;
   const ready = (pathLength > 0 || textWidth > 0) && spacing > 0;
 
   useEffect(() => {
@@ -126,19 +126,18 @@ export function HeroCradleMarquee({
 
   return (
     <div
-      className="relative z-30 pointer-events-auto w-full max-w-4xl lg:max-w-5xl mx-auto select-none overflow-visible py-1"
+      className="pointer-events-none absolute inset-0 z-0 select-none overflow-visible flex items-center justify-center"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onFocusCapture={() => setIsHovered(true)}
       onBlurCapture={() => setIsHovered(false)}
       style={{
         visibility: ready ? "visible" : "hidden",
-        height: "90px",
       }}
     >
       <svg
-        viewBox="0 0 1000 110"
-        className="w-full h-full block cursor-grab active:cursor-grabbing overflow-visible pointer-events-auto"
+        viewBox="0 0 1000 380"
+        className="w-full h-full max-w-5xl overflow-visible pointer-events-auto cursor-grab active:cursor-grabbing"
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
@@ -163,52 +162,39 @@ export function HeroCradleMarquee({
 
         <defs>
           <path ref={pathRef} id={pathId} d={pathD} fill="none" />
-          
-          <linearGradient id="arcFade" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="white" stopOpacity="0" />
-            <stop offset="5%" stopColor="white" stopOpacity="1" />
-            <stop offset="95%" stopColor="white" stopOpacity="1" />
-            <stop offset="100%" stopColor="white" stopOpacity="0" />
-          </linearGradient>
-          <mask id="arcMask">
-            <rect width="100%" height="100%" fill="url(#arcFade)" />
-          </mask>
         </defs>
 
-        {/* Charcoal #212121 Ribbon Track */}
+        {/* Charcoal #212121 Ribbon Track - 100% Fully Visible Arc */}
         <path
           d={pathD}
           fill="none"
           stroke="#212121"
-          strokeWidth="34"
+          strokeWidth="36"
           strokeLinecap="round"
-          className="drop-shadow-md"
-          mask="url(#arcMask)"
+          className="drop-shadow-lg"
         />
 
         {/* Architectural Dashed Border */}
         <path
           d={pathD}
           fill="none"
-          stroke="#404040"
-          strokeWidth="36"
+          stroke="#444444"
+          strokeWidth="38"
           strokeDasharray="4 4"
           strokeLinecap="round"
-          className="opacity-70"
-          mask="url(#arcMask)"
+          className="opacity-75"
         />
 
         {/* Streaming Text */}
         {ready && (
           <text
             fill={color}
-            fontSize="10px"
+            fontSize="10.5px"
             fontFamily="var(--font-mono), monospace"
             fontWeight={800}
             letterSpacing="2px"
             xmlSpace="preserve"
             dy="3.5"
-            mask="url(#arcMask)"
           >
             <textPath href={`#${pathId}`} xmlSpace="preserve">
               {Array.from({ length: calculatedRepeats }).map((_, i) => (

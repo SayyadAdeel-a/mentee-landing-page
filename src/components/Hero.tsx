@@ -20,7 +20,7 @@ export function Hero() {
   };
 
   return (
-    <section className="relative flex min-h-[92vh] sm:min-h-screen flex-col items-center justify-between overflow-hidden bg-white px-4 sm:px-6 pt-24 pb-8 sm:pb-12 text-neutral-950">
+    <section className="relative flex min-h-[95vh] sm:min-h-screen flex-col items-center justify-between overflow-hidden bg-white px-4 sm:px-6 pt-24 pb-8 sm:pb-12 text-neutral-950">
       {/* Background white bg — black lines fade in, then curtain opens from center outward */}
       {!reduce && (
         <div
@@ -50,20 +50,20 @@ export function Hero() {
         </div>
       )}
 
-      {/* Main Center Content Wrapper */}
-      <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-1 flex-col items-center justify-center text-center my-auto">
-        {/* Charcoal Smile Arc Marquee positioned directly above the MENTEE title */}
+      {/* Main Center Content Wrapper with Surrounding Grand Arc Marquee */}
+      <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-1 flex-col items-center justify-center text-center my-auto py-8 sm:py-12">
+        {/* Grand Arc Marquee: Starts at M, sweeps below CTAs, and rises to E */}
         <motion.div
-          initial={reduce ? false : { opacity: 0, y: -10 }}
-          animate={reduce ? undefined : { opacity: 1, y: 0 }}
-          transition={{ delay: 2.5, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="relative z-30 w-full mb-1 sm:mb-2"
+          initial={reduce ? false : { opacity: 0, scale: 0.96 }}
+          animate={reduce ? undefined : { opacity: 1, scale: 1 }}
+          transition={{ delay: 2.7, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center"
         >
           <HeroCradleMarquee />
         </motion.div>
 
         {/* Signature MENTEE Title */}
-        <div className="relative z-10 flex w-full items-center justify-center overflow-visible py-1">
+        <div className="relative z-10 flex w-full items-center justify-center overflow-visible py-2">
           <h1
             aria-label={WORD}
             className="relative flex text-[3.75rem] font-black leading-none tracking-tighter text-neutral-900 sm:text-8xl md:text-[10.5rem] lg:text-[12.5rem] select-none"
@@ -127,7 +127,7 @@ export function Hero() {
       <motion.div
         initial={reduce ? false : { opacity: 0, y: 20 }}
         animate={reduce ? undefined : { opacity: 1, y: 0 }}
-        transition={{ delay: 3.2, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ delay: 3.3, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         className="relative z-10 mt-auto pt-4 flex flex-col items-center justify-center cursor-pointer group select-none"
         onClick={handleScrollToContent}
       >
